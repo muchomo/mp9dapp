@@ -140,7 +140,7 @@
 
 .rc-slider-disabled .rc-slider-dot,
 .rc-slider-disabled .rc-slider-mark-text {
-    cursor: not-allowed !important
+    cursor: not-allowed !important;
 }
 
 .rc-slider-vertical {
