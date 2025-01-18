@@ -672,7 +672,7 @@
                         let {
                             default: t,
                             ...r
-                        } = e.blockExplorers ? ? {};
+                        } = e.blockExplorers || {};
                         if (t) return [t.url, ...Object.values(r).map(e => e.url)]
                     }
                     isChainUnsupported(e) {
@@ -812,7 +812,7 @@
                             getProvider() {
                                 if ("undefined" == typeof window) return;
                                 let e = window.ethereum;
-                                return e ? .providers && e.providers.length > 0 ? e.providers[0] : e
+                                return e?.providers && e.providers.length > 0 ? e.providers[0] : e
                             },
                             ...t
                         };
@@ -840,7 +840,7 @@
                                     if (e) return
                                 }
                             }
-                            this.emit("disconnect"), this.options.shimDisconnect && this.storage ? .removeItem(this.shimDisconnectKey)
+                            this.emit("disconnect"), this.options.shimDisconnect && this.storage?.removeItem(this.shimDisconnectKey)
                         };
                         let o = r.getProvider();
                         if ("string" == typeof r.name) this.name = r.name;
@@ -848,7 +848,7 @@
                             let e = function(e) {
                                 if (!e) return "Injected";
                                 let getName = e => e.isApexWallet ? "Apex Wallet" : e.isAvalanche ? "Core Wallet" : e.isBackpack ? "Backpack" : e.isBifrost ? "Bifrost Wallet" : e.isBitKeep ? "BitKeep" : e.isBitski ? "Bitski" : e.isBlockWallet ? "BlockWallet" : e.isBraveWallet ? "Brave Wallet" : e.isCoin98 ? "Coin98 Wallet" : e.isCoinbaseWallet ? "Coinbase Wallet" : e.isDawn ? "Dawn Wallet" : e.isDefiant ? "Defiant" : e.isDesig ? "Desig Wallet" : e.isEnkrypt ? "Enkrypt" : e.isExodus ? "Exodus" : e.isFordefi ? "Fordefi" : e.isFrame ? "Frame" : e.isFrontier ? "Frontier Wallet" : e.isGamestop ? "GameStop Wallet" : e.isHaqqWallet ? "HAQQ Wallet" : e.isHyperPay ? "HyperPay Wallet" : e.isImToken ? "ImToken" : e.isHaloWallet ? "Halo Wallet" : e.isKuCoinWallet ? "KuCoin Wallet" : e.isMathWallet ? "MathWallet" : e.isNovaWallet ? "Nova Wallet" : e.isOkxWallet || e.isOKExWallet ? "OKX Wallet" : e.isOktoWallet ? "Okto Wallet" : e.isOneInchIOSWallet || e.isOneInchAndroidWallet ? "1inch Wallet" : e.isOneKey ? "OneKey Wallet" : e.isOpera ? "Opera" : e.isPhantom ? "Phantom" : e.isPortal ? "Ripio Portal" : e.isRabby ? "Rabby Wallet" : e.isRainbow ? "Rainbow" : e.isSafePal ? "SafePal Wallet" : e.isStatus ? "Status" : e.isSubWallet ? "SubWallet" : e.isTalisman ? "Talisman" : e.isTally ? "Taho" : e.isTokenPocket ? "TokenPocket" : e.isTokenary ? "Tokenary" : e.isTrust || e.isTrustWallet ? "Trust Wallet" : e.isTTWallet ? "TTWallet" : e.isXDEFI ? "XDEFI Wallet" : e.isZeal ? "Zeal" : e.isZerion ? "Zerion" : e.isMetaMask ? "MetaMask" : void 0;
-                                if (e.providers ? .length) {
+                                if (e.providers?.length) {
                                     let t = new Set,
                                         r = 1;
                                     for (let n of e.providers) {
@@ -856,9 +856,9 @@
                                         e || (e = `Unknown Wallet #${r}`, r += 1), t.add(e)
                                     }
                                     let n = [...t];
-                                    return n.length ? n : n[0] ? ? "Injected"
+                                    return n.length ? n : n[0] || "Injected"
                                 }
-                                return getName(e) ? ? "Injected"
+                                return getName(e) || "Injected"
                             }(o);
                             r.name ? this.name = r.name(e) : "string" == typeof e ? this.name = e : this.name = e[0]
                         } else this.name = "Injected";
@@ -883,7 +883,7 @@
                                 let t = await this.switchChain(e);
                                 o = t.id, i = this.isChainUnsupported(o)
                             }
-                            return this.options.shimDisconnect && this.storage ? .setItem(this.shimDisconnectKey, !0), {
+                            return this.options.shimDisconnect && this.storage?.setItem(this.shimDisconnectKey, !0), {
                                 account: n,
                                 chain: {
                                     id: o,
@@ -898,7 +898,7 @@
                     }
                     async disconnect() {
                         let e = await this.getProvider();
-                        e ? .removeListener && (e.removeListener("accountsChanged", this.onAccountsChanged), e.removeListener("chainChanged", this.onChainChanged), e.removeListener("disconnect", this.onDisconnect), this.options.shimDisconnect && this.storage ? .removeItem(this.shimDisconnectKey))
+                        e?.removeListener && (e.removeListener("accountsChanged", this.onAccountsChanged), e.removeListener("chainChanged", this.onChainChanged), e.removeListener("disconnect", this.onDisconnect), this.options.shimDisconnect && this.storage?.removeItem(this.shimDisconnectKey))
                     }
                     async getAccount() {
                         let e = await this.getProvider();
@@ -932,7 +932,7 @@
                     }
                     async isAuthorized() {
                         try {
-                            if (this.options.shimDisconnect && !this.storage ? .getItem(this.shimDisconnectKey)) return !1;
+                            if (this.options.shimDisconnect && !this.storage?.getItem(this.shimDisconnectKey)) return !1;
                             let e = await this.getProvider();
                             if (!e) throw new d;
                             let t = await this.getAccount();
@@ -954,8 +954,8 @@
                             }), new Promise(t => this.on("change", ({
                                 chain: r
                             }) => {
-                                r ? .id === e && t()
-                            }))]), this.chains.find(t => t.id === e) ? ? {
+                                r?.id === e && t()
+                            }))]), this.chains.find(t => t.id === e) || {
                                 id: e,
                                 name: `Chain ${r}`,
                                 network: `${r}`,
@@ -979,14 +979,14 @@
                                 chainId: e,
                                 connectorId: this.id
                             });
-                            if (4902 === o.code || o ? .data ? .originalError ? .code === 4902) try {
+                            if (4902 === o.code || o?.data?.originalError?.code === 4902) try {
                                 await t.request({
                                     method: "wallet_addEthereumChain",
                                     params: [{
                                         chainId: r,
                                         chainName: n.name,
                                         nativeCurrency: n.nativeCurrency,
-                                        rpcUrls: [n.rpcUrls.public ? .http[0] ? ? ""],
+                                        rpcUrls: [n.rpcUrls.public?.http[0] || ""],
                                         blockExplorerUrls: this.getBlockExplorerUrls(n)
                                     }]
                                 });
@@ -1086,7 +1086,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     publicClient: ({
                         chainId: t
                     }) => {
-                        let d = u.find(e => e.id === t) ? ? e[0],
+                        let d = u.find(e => e.id === t) || e[0],
                             f = l[d.id];
                         if (!f || !f[0]) throw Error(`No providers configured for chain "${d.id}"`);
                         let p = (0, w.v)({
@@ -1108,7 +1108,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     webSocketPublicClient: ({
                         chainId: t
                     }) => {
-                        let l = u.find(e => e.id === t) ? ? e[0],
+                        let l = u.find(e => e.id === t) || e[0],
                             f = d[l.id];
                         if (!f || !f[0]) return;
                         let p = (0, w.v)({
@@ -1125,9 +1125,9 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                     retryCount: s,
                                     timeout: c
                                 }) => {
-                                    let u = t.retryCount ? ? s,
-                                        l = c ? ? t.timeout ? ? 1e4,
-                                        d = e || i ? .rpcUrls.default.webSocket ? .[0];
+                                    let u = t.retryCount || s,
+                                        l = c || t.timeout || 1e4,
+                                        d = e || i?.rpcUrls.default.webSocket?.[0];
                                     if (!d) throw new x.I;
                                     return (0, S.q)({
                                         key: r,
@@ -1176,7 +1176,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                                     },
                                                     onResponse(e) {
                                                         if (e.error) {
-                                                            i(e.error), r ? .(e.error);
+                                                            i(e.error), r?.(e.error);
                                                             return
                                                         }
                                                         if ("number" == typeof e.id) {
@@ -1297,8 +1297,8 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     }
                 }((e, r) => {
                     let n = "bigint" == typeof r ? `#bigint.${r.toString()}` : r;
-                    return t ? .(e, n) || n
-                }, n), r ? ? void 0)
+                    return t?.(e, n) || n
+                }, n), r || void 0)
             }
             var q = {
                 getItem: e => "",
@@ -1358,8 +1358,8 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         let f = "disconnected";
                         if (e) try {
                             let e = n.getItem(U),
-                                t = e ? .state ? .data;
-                            f = t ? .account ? "reconnecting" : "connecting", d = t ? .chain ? .id
+                                t = e?.state?.data;
+                            f = t?.account ? "reconnecting" : "connecting", d = t?.chain?.id
                         } catch (e) {}
                         let p = "function" == typeof t ? t() : t;
                         p.forEach(e => e.setStorage(n)), this.store = (0, A.M)((0, I.XR)((0, I.tJ)(() => ({
@@ -1376,14 +1376,14 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             storage: n,
                             partialize: t => ({ ...e && {
                                     data: {
-                                        account: t ? .data ? .account,
-                                        chain: t ? .data ? .chain
+                                        account: t?.data?.account,
+                                        chain: t?.data?.chain
                                     }
                                 },
-                                chains: t ? .chains
+                                chains: t?.chains
                             }),
                             version: 2
-                        }))), this.storage = n, __privateSet(this, i, n ? .getItem("wallet")), __privateMethod(this, s, c).call(this), e && "undefined" != typeof window && setTimeout(async () => await this.autoConnect(), 0)
+                        }))), this.storage = n, __privateSet(this, i, n?.getItem("wallet")), __privateMethod(this, s, c).call(this), e && "undefined" != typeof window && setTimeout(async () => await this.autoConnect(), 0)
                     }
                     get chains() {
                         return this.store.getState().chains
@@ -1401,7 +1401,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         return this.store.getState().error
                     }
                     get lastUsedChainId() {
-                        return this.data ? .chain ? .id
+                        return this.data?.chain?.id
                     }
                     get publicClient() {
                         return this.store.getState().publicClient
@@ -1429,12 +1429,12 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         }))
                     }
                     async destroy() {
-                        this.connector && await this.connector.disconnect ? .(), __privateSet(this, o, !1), this.clearState(), this.store.destroy()
+                        this.connector && await this.connector.disconnect?.(), __privateSet(this, o, !1), this.clearState(), this.store.destroy()
                     }
                     async autoConnect() {
                         if (__privateGet(this, o)) return;
                         __privateSet(this, o, !0), this.setState(e => ({ ...e,
-                            status: e.data ? .account ? "reconnecting" : "connecting"
+                            status: e.data?.account ? "reconnecting" : "connecting"
                         }));
                         let e = __privateGet(this, i) ? [...this.connectors].sort(e => e.id === __privateGet(this, i) ? -1 : 1) : this.connectors,
                             t = !1;
@@ -1445,7 +1445,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             let n = await r.connect();
                             this.setState(e => ({ ...e,
                                 connector: r,
-                                chains: r ? .chains,
+                                chains: r?.chains,
                                 data: n,
                                 status: "connected"
                             })), t = !0;
@@ -1469,16 +1469,16 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         chainId: e
                     } = {}) {
                         let t = this.publicClients.get(-1);
-                        if (t && t ? .chain.id === e || (t = this.publicClients.get(e ? ? -1))) return t;
+                        if (t && t?.chain.id === e || (t = this.publicClients.get(e || -1))) return t;
                         let {
                             publicClient: r
                         } = this.args;
                         return t = "function" == typeof r ? r({
                             chainId: e
-                        }) : r, this.publicClients.set(e ? ? -1, t), t
+                        }) : r, this.publicClients.set(e || -1, t), t
                     }
                     setPublicClient(e) {
-                        let t = this.data ? .chain ? .id;
+                        let t = this.data?.chain?.id;
                         this.args = { ...this.args,
                             publicClient: e
                         }, this.publicClients.clear(), this.setState(e => ({ ...e,
@@ -1491,16 +1491,16 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         chainId: e
                     } = {}) {
                         let t = this.webSocketPublicClients.get(-1);
-                        if (t && t ? .chain.id === e || (t = this.webSocketPublicClients.get(e ? ? -1))) return t;
+                        if (t && t?.chain.id === e || (t = this.webSocketPublicClients.get(e || -1))) return t;
                         let {
                             webSocketPublicClient: r
                         } = this.args;
                         return (t = "function" == typeof r ? r({
                             chainId: e
-                        }) : r) && this.webSocketPublicClients.set(e ? ? -1, t), t
+                        }) : r) && this.webSocketPublicClients.set(e || -1, t), t
                     }
                     setWebSocketPublicClient(e) {
-                        let t = this.data ? .chain ? .id;
+                        let t = this.data?.chain?.id;
                         this.args = { ...this.args,
                             webSocketPublicClient: e
                         }, this.webSocketPublicClients.clear(), this.setState(e => ({ ...e,
@@ -1510,7 +1510,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         }))
                     }
                     setLastUsedConnector(e = null) {
-                        this.storage ? .setItem("wallet", e)
+                        this.storage?.setItem("wallet", e)
                     }
                 };
 
@@ -1539,7 +1539,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     });
                     return r.setLastUsedConnector(t.id), r.setState(e => ({ ...e,
                         connector: t,
-                        chains: t ? .chains,
+                        chains: t?.chains,
                         data: n,
                         status: "connected"
                     })), r.storage.setItem("connected", !0), { ...n,
@@ -1574,7 +1574,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 this.store.subscribe(({
                     connector: e
                 }) => e, (e, t) => {
-                    t ? .off ? .("change", onChange), t ? .off ? .("disconnect", onDisconnect), t ? .off ? .("error", onError), e && (e.on ? .("change", onChange), e.on ? .("disconnect", onDisconnect), e.on ? .("error", onError))
+                    t?.off?.("change", onChange), t?.off?.("disconnect", onDisconnect), t?.off?.("error", onError), e && (e.on?.("change", onChange), e.on?.("disconnect", onDisconnect), e.on?.("error", onError))
                 });
                 let {
                     publicClient: e,
@@ -1582,7 +1582,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 } = this.args;
                 ("function" == typeof e || "function" == typeof t) && this.store.subscribe(({
                     data: e
-                }) => e ? .chain ? .id, e => {
+                }) => e?.chain?.id, e => {
                     this.setState(t => ({ ...t,
                         publicClient: this.getPublicClient({
                             chainId: e
@@ -2132,7 +2132,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 chainId: e
             } = {}) {
                 let t = getConfig(),
-                    r = await t.connector ? .getWalletClient ? .({
+                    r = await t.connector?.getWalletClient?.({
                         chainId: e
                     }) || null;
                 return r
@@ -2173,8 +2173,8 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         data: e,
                         connector: t
                     }) => ({
-                        account: e ? .account,
-                        chainId: e ? .chain ? .id,
+                        account: e?.account,
+                        chainId: e?.chain?.id,
                         connector: t
                     }), handleChange, {
                         equalityFn: j.X
@@ -2205,7 +2205,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     chainId: e
                 });
                 return i.multicall({
-                    allowFailure: o.allowFailure ? ? !0,
+                    allowFailure: o.allowFailure || !0,
                     blockNumber: r,
                     blockTag: n,
                     contracts: t
@@ -2246,7 +2246,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 try {
                     let n = getPublicClient(),
                         i = e.reduce((e, t, r) => {
-                            let o = t.chainId ? ? n.chain.id;
+                            let o = t.chainId || n.chain.id;
                             return { ...e,
                                 [o]: [...e[o] || [], {
                                     contract: t,
@@ -2316,7 +2316,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             });
                         return {
                             decimals: c,
-                            formatted: (0, R.b)(s ? ? "0", getUnit(r ? ? c)),
+                            formatted: (0, R.b)(s || "0", getUnit(r || c)),
                             symbol: u,
                             value: s
                         }
@@ -2343,15 +2343,15 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         throw e
                     }
                 }
-                let s = [...o.publicClient.chains || [], ...o.chains ? ? []],
+                let s = [...o.publicClient.chains || [], ...o.chains || []],
                     c = await i.getBalance({
                         address: e
                     }),
                     u = s.find(e => e.id === i.chain.id);
                 return {
-                    decimals: u ? .nativeCurrency.decimals ? ? 18,
-                    formatted: (0, R.b)(c ? ? "0", getUnit(r ? ? 18)),
-                    symbol: u ? .nativeCurrency.symbol ? ? "ETH",
+                    decimals: u?.nativeCurrency.decimals || 18,
+                    formatted: (0, R.b)(c || "0", getUnit(r || 18)),
+                    symbol: u?.nativeCurrency.symbol || "ETH",
                     value: c
                 }
             }
@@ -2365,7 +2365,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 switch (r) {
                     case "connected":
                         return {
-                            address: e ? .account,
+                            address: e?.account,
                             connector: t,
                             isConnected: !0,
                             isConnecting: !1,
@@ -2375,9 +2375,9 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         };
                     case "reconnecting":
                         return {
-                            address: e ? .account,
+                            address: e?.account,
                             connector: t,
-                            isConnected: !!e ? .account,
+                            isConnected: !!e?.account,
                             isConnecting: !1,
                             isDisconnected: !1,
                             isReconnecting: !0,
@@ -2385,7 +2385,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         };
                     case "connecting":
                         return {
-                            address: e ? .account,
+                            address: e?.account,
                             connector: t,
                             isConnected: !1,
                             isConnecting: !0,
@@ -2408,9 +2408,9 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
 
             function getNetwork() {
                 let e = getConfig(),
-                    t = e.data ? .chain ? .id,
-                    r = e.chains ? ? [],
-                    n = [...e.publicClient ? .chains || [], ...r].find(e => e.id === t) ? ? {
+                    t = e.data?.chain?.id,
+                    r = e.chains || [],
+                    n = [...e.publicClient?.chains || [], ...r].find(e => e.id === t) || {
                         id: t,
                         name: `Chain ${t}`,
                         network: `${t}`,
@@ -2430,7 +2430,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     };
                 return {
                     chain: t ? { ...n,
-                        ...e.data ? .chain,
+                        ...e.data?.chain,
                         id : t
                     } : void 0,
                     chains: r
@@ -2458,7 +2458,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         connector: r,
                         status: n
                     }) => t({
-                        address: e ? .account,
+                        address: e?.account,
                         connector: r,
                         status: n
                     }), () => e(getAccount()), {
@@ -2475,7 +2475,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         data: e,
                         chains: r
                     }) => t({
-                        chainId: e ? .chain ? .id,
+                        chainId: e?.chain?.id,
                         chains: r
                     }), () => e(getNetwork()), {
                         equalityFn: j.X
@@ -2495,7 +2495,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
         55846: function(e, t, r) {
             function execTyped(e, t) {
                 let r = e.exec(t);
-                return r ? .groups
+                return r?.groups
             }
             r.d(t, {
                 Zw: function() {
@@ -2707,7 +2707,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
             async function call(e, t) {
                 let {
                     account: o = e.account,
-                    batch: u = !!e.batch ? .multicall,
+                    batch: u = !!e.batch?.multicall,
                     blockNumber: l,
                     blockTag: d = "latest",
                     accessList: g,
@@ -2725,12 +2725,12 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     (0, v.F)(t);
                     let r = l ? (0, f.eC)(l) : void 0,
                         n = r || d,
-                        o = e.chain ? .formatters ? .transactionRequest ? .format,
+                        o = e.chain?.formatters?.transactionRequest?.format,
                         i = o || y.tG,
                         c = i({ ...(0, b.K)(I, {
                                 format: o
                             }),
-                            from: A ? .address,
+                            from: A?.address,
                             accessList: g,
                             data: w,
                             gas: E,
@@ -2780,7 +2780,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             offchainLookup: o,
                             offchainLookupSignature: s
                         } = await r.e(522).then(r.bind(r, 90522));
-                    if (n ? .slice(0, 10) === s && S) return {
+                    if (n?.slice(0, 10) === s && S) return {
                         data: await o(e, {
                             data: n,
                             to: S
@@ -2808,7 +2808,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 let {
                     batchSize: r = 1024,
                     wait: n = 0
-                } = "object" == typeof e.batch ? .multicall ? e.batch.multicall : {}, {
+                } = "object" == typeof e.batch?.multicall ? e.batch.multicall : {}, {
                     blockNumber: i,
                     blockTag: p = "latest",
                     data: m,
@@ -2902,17 +2902,17 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     chain: u = e.chain,
                     request: l,
                     type: d = "eip1559"
-                } = t || {}, f = await (async () => "function" == typeof u ? .fees ? .baseFeeMultiplier ? u.fees.baseFeeMultiplier({
+                } = t || {}, f = await (async () => "function" == typeof u?.fees?.baseFeeMultiplier ? u.fees.baseFeeMultiplier({
                     block: r,
                     client: e,
                     request: l
-                }) : u ? .fees ? .baseFeeMultiplier ? ? 1.2)();
+                }) : u?.fees?.baseFeeMultiplier || 1.2)();
                 if (f < 1) throw new n.Fz;
-                let p = f.toString().split(".")[1] ? .length ? ? 0,
+                let p = f.toString().split(".")[1]?.length || 0,
                     m = 10 ** p,
                     multiply = e => e * BigInt(Math.ceil(f * m)) / BigInt(m),
                     b = r || await (0, o.s)(e, s.Q, "getBlock")({});
-                if ("function" == typeof u ? .fees ? .estimateFeesPerGas) return u.fees.estimateFeesPerGas({
+                if ("function" == typeof u?.fees?.estimateFeesPerGas) return u.fees.estimateFeesPerGas({
                     block: r,
                     client: e,
                     multiply,
@@ -2921,19 +2921,19 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 });
                 if ("eip1559" === d) {
                     if ("bigint" != typeof b.baseFeePerGas) throw new n.e5;
-                    let t = l ? .maxPriorityFeePerGas ? l.maxPriorityFeePerGas : await (0, i.h)(e, {
+                    let t = l?.maxPriorityFeePerGas ? l.maxPriorityFeePerGas : await (0, i.h)(e, {
                             block: b,
                             chain: u,
                             request: l
                         }),
                         r = multiply(b.baseFeePerGas),
-                        o = l ? .maxFeePerGas ? ? r + t;
+                        o = l?.maxFeePerGas || r + t;
                     return {
                         maxFeePerGas: o,
                         maxPriorityFeePerGas: t
                     }
                 }
-                let y = l ? .gasPrice ? ? multiply(await (0, o.s)(e, c.o, "getGasPrice")({}));
+                let y = l?.gasPrice || multiply(await (0, o.s)(e, c.o, "getGasPrice")({}));
                 return {
                     gasPrice: y
                 }
@@ -2967,7 +2967,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     value: b
                 }) {
                     let y = (0, l.xr)({
-                        from: t ? .address,
+                        from: t?.address,
                         to: m,
                         value: void 0 !== b && `${(0,s.d)(b)} ${n?.nativeCurrency?.symbol||"ETH"}`,
                         data: o,
@@ -3001,7 +3001,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 b = r(25621),
                 y = r(40297);
             async function estimateGas(e, t) {
-                let r = t.account ? ? e.account;
+                let r = t.account || e.account;
                 if (!r) throw new o.o({
                     docsPath: "/docs/actions/public/estimateGas"
                 });
@@ -3022,7 +3022,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         ...E
                     } = "local" === s.type ? await (0, y.Z)(e, t) : t, C = n ? (0, i.eC)(n) : void 0, P = C || o;
                     (0, b.F)(t);
-                    let x = e.chain ? .formatters ? .transactionRequest ? .format,
+                    let x = e.chain?.formatters?.transactionRequest?.format,
                         k = x || m.tG,
                         S = k({ ...(0, p.K)(E, {
                                 format: x
@@ -3086,7 +3086,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     chain: u = e.chain,
                     request: l
                 } = t || {};
-                if ("function" == typeof u ? .fees ? .defaultPriorityFee) {
+                if ("function" == typeof u?.fees?.defaultPriorityFee) {
                     let t = r || await (0, i.s)(e, s.Q, "getBlock")({});
                     return u.fees.defaultPriorityFee({
                         block: t,
@@ -3094,7 +3094,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         request: l
                     })
                 }
-                if (void 0 !== u ? .fees ? .defaultPriorityFee) return u ? .fees ? .defaultPriorityFee;
+                if (void 0 !== u?.fees?.defaultPriorityFee) return u?.fees?.defaultPriorityFee;
                 try {
                     let t = await e.request({
                         method: "eth_maxPriorityFeePerGas"
@@ -3104,7 +3104,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     let [t, o] = await Promise.all([r ? Promise.resolve(r) : (0, i.s)(e, s.Q, "getBlock")({}), (0, i.s)(e, c.o, "getGasPrice")({})]);
                     if ("bigint" != typeof t.baseFeePerGas) throw new n.e5;
                     let u = o - t.baseFeePerGas;
-                    if (u < 0 n) return 0 n;
+                    if (u < 0 ) return 0;
                     return u
                 }
             }
@@ -3124,7 +3124,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 blockTag: s,
                 includeTransactions: c
             } = {}) {
-                let u = c ? ? !1,
+                let u = c || !1,
                     l = void 0 !== r ? (0, o.eC)(r) : void 0,
                     d = null;
                 if (!(d = t ? await e.request({
@@ -3132,12 +3132,12 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         params: [t, u]
                     }) : await e.request({
                         method: "eth_getBlockByNumber",
-                        params: [l || (s ? ? "latest"), u]
+                        params: [l || (s || "latest"), u]
                     }))) throw new n.f({
                     blockHash: t,
                     blockNumber: r
                 });
-                let f = e.chain ? .formatters ? .block ? .format || i.Z;
+                let f = e.chain?.formatters?.block?.format || i.Z;
                 return f(d)
             }
         },
@@ -3673,7 +3673,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
             let c = {
                 block: (0, o.G)({
                     format(e) {
-                        let t = e.transactions ? .map(e => {
+                        let t = e.transactions?.map(e => {
                             if ("string" == typeof e) return e;
                             let t = i.Tr(e);
                             return "0x7e" === t.typeHex && (t.isSystemTx = e.isSystemTx, t.mint = e.mint ? n.y_(e.mint) : void 0, t.sourceHash = e.sourceHash, t.type = "deposit"), t
@@ -3713,7 +3713,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
             function createClient(e) {
                 let {
                     batch: t,
-                    cacheTime: r = e.pollingInterval ? ? 4e3,
+                    cacheTime: r = e.pollingInterval || 4e3,
                     key: s = "base",
                     name: c = "Base Client",
                     pollingInterval: u = 4e3,
@@ -3782,7 +3782,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
             function isNullUniversalResolverError(e, t) {
                 if (!(e instanceof f.G)) return !1;
                 let r = e.walk(e => e instanceof p.Lu);
-                return r instanceof p.Lu && (!!(r.data ? .errorName === "ResolverNotFound" || r.data ? .errorName === "ResolverWildcardNotSupported" || r.reason ? .includes("Wildcard on non-extended resolvers is not supported")) || "reverse" === t && r.reason === d.$[50])
+                return r instanceof p.Lu && (!!(r.data?.errorName === "ResolverNotFound" || r.data?.errorName === "ResolverWildcardNotSupported" || r.reason?.includes("Wildcard on non-extended resolvers is not supported")) || "reverse" === t && r.reason === d.$[50])
             }
             var m = r(62832),
                 b = r(79958),
@@ -3849,7 +3849,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     abi: t,
                     data: "object" == typeof u ? u.data : u,
                     functionName: i,
-                    message: d ? ? l
+                    message: d || l
                 }) : e;
                 return new p.uq(m, {
                     abi: t,
@@ -4006,7 +4006,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     });
                     if (200 === t.status) {
                         let e = t.headers.get("content-type");
-                        return e ? .startsWith("image/")
+                        return e?.startsWith("image/")
                     }
                     return !1
                 } catch (t) {
@@ -4036,20 +4036,20 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     isOnChain: !0,
                     isEncoded: r
                 };
-                let n = getGateway(t ? .ipfs, "https://ipfs.io"),
-                    o = getGateway(t ? .arweave, "https://arweave.net"),
+                let n = getGateway(t?.ipfs, "https://ipfs.io"),
+                    o = getGateway(t?.arweave, "https://arweave.net"),
                     i = e.match(P),
                     {
                         protocol: s,
                         subpath: c,
                         target: u,
                         subtarget: l = ""
-                    } = i ? .groups || {},
+                    } = i?.groups || {},
                     d = "ipns:/" === s || "ipns/" === c,
                     f = "ipfs:/" === s || "ipfs/" === c || x.test(e);
                 if (e.startsWith("http") && !d && !f) {
                     let r = e;
-                    return t ? .arweave && (r = e.replace(/https:\/\/arweave.net/g, t ? .arweave)), {
+                    return t?.arweave && (r = e.replace(/https:\/\/arweave.net/g, t?.arweave)), {
                         uri: r,
                         isOnChain: !1,
                         isEncoded: !1
@@ -4366,7 +4366,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 method: t
             }) {
                 let r = {};
-                return "fallback" === e.transport.type && e.transport.onResponse ? .(({
+                return "fallback" === e.transport.type && e.transport.onResponse?.(({
                     method: e,
                     response: n,
                     status: o,
@@ -4423,15 +4423,15 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     i = (0, T.e)(o),
                     s = [];
                 if (r && "inputs" in n) {
-                    let e = n.inputs ? .filter(e => "indexed" in e && e.indexed),
-                        t = Array.isArray(r) ? r : Object.values(r).length > 0 ? e ? .map(e => r[e.name]) ? ? [] : [];
-                    t.length > 0 && (s = e ? .map((e, r) => Array.isArray(t[r]) ? t[r].map((n, o) => encodeArg({
+                    let e = n.inputs?.filter(e => "indexed" in e && e.indexed),
+                        t = Array.isArray(r) ? r : Object.values(r).length > 0 ? e?.map(e => r[e.name]) || [] : [];
+                    t.length > 0 && (s = e?.map((e, r) => Array.isArray(t[r]) ? t[r].map((n, o) => encodeArg({
                         param: e,
                         value: t[r][o]
                     })) : t[r] ? encodeArg({
                         param: e,
                         value: t[r]
-                    }) : null) ? ? [])
+                    }) : null) || [])
                 }
                 return [i, ...s]
             }
@@ -4489,7 +4489,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 strict: s,
                 toBlock: c
             } = {}) {
-                let u = o ? ? (n ? [n] : void 0),
+                let u = o || (n ? [n] : void 0),
                     d = createFilterRequestScope(e, {
                         method: "eth_newFilter"
                     }),
@@ -4564,7 +4564,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         args: n,
                         docsPath: "/docs/contract/estimateContractGas",
                         functionName: o,
-                        sender: e ? .address
+                        sender: e?.address
                     })
                 }
             }
@@ -4631,7 +4631,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     method: "eth_blockNumber"
                 }), {
                     cacheKey: cacheKey(e.uid),
-                    cacheTime: r ? ? t
+                    cacheTime: r || t
                 });
                 return BigInt(n)
             }
@@ -4676,8 +4676,8 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 args: c,
                 strict: u
             } = {}) {
-                let d = u ? ? !1,
-                    f = s ? ? (i ? [i] : void 0),
+                let d = u || !1,
+                    f = s || (i ? [i] : void 0),
                     p = [];
                 return f && (p = [f.flatMap(e => encodeEventTopics({
                     abi: [e],
@@ -4720,7 +4720,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         let t, r;
                         if (n instanceof w.SM || n instanceof w.Gy) {
                             if (d) return;
-                            t = n.abiItem.name, r = n.abiItem.inputs ? .some(e => !("name" in e && e.name))
+                            t = n.abiItem.name, r = n.abiItem.inputs?.some(e => !("name" in e && e.name))
                         }
                         return (0, _.U)(e, {
                             args: r ? [] : {},
@@ -4770,7 +4770,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     baseFeePerGas: s.baseFeePerGas.map(e => BigInt(e)),
                     gasUsedRatio: s.gasUsedRatio,
                     oldestBlock: BigInt(s.oldestBlock),
-                    reward: s.reward ? .map(e => e.map(e => BigInt(e)))
+                    reward: s.reward?.map(e => e.map(e => BigInt(e)))
                 }
             }
             async function getFilterChanges(e, {
@@ -4804,7 +4804,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         let r, n;
                         if (o instanceof w.SM || o instanceof w.Gy) {
                             if ("strict" in t && t.strict) return;
-                            r = o.abiItem.name, n = o.abiItem.inputs ? .some(e => !("name" in e && e.name))
+                            r = o.abiItem.name, n = o.abiItem.inputs?.some(e => !("name" in e && e.name))
                         }
                         return (0, _.U)(e, {
                             args: n ? [] : {},
@@ -4816,7 +4816,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
             async function getFilterLogs(e, {
                 filter: t
             }) {
-                let r = t.strict ? ? !1,
+                let r = t.strict || !1,
                     n = await t.request({
                         method: "eth_getFilterLogs",
                         params: [t.id]
@@ -4843,7 +4843,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         let r, n;
                         if (o instanceof w.SM || o instanceof w.Gy) {
                             if ("strict" in t && t.strict) return;
-                            r = o.abiItem.name, n = o.abiItem.inputs ? .some(e => !("name" in e && e.name))
+                            r = o.abiItem.name, n = o.abiItem.inputs?.some(e => !("name" in e && e.name))
                         }
                         return (0, _.U)(e, {
                             args: n ? [] : {},
@@ -4862,7 +4862,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 let i = void 0 !== r ? (0, l.eC)(r) : void 0,
                     s = await e.request({
                         method: "eth_getProof",
-                        params: [t, o, i || (n ? ? "latest")]
+                        params: [t, o, i || (n || "latest")]
                     });
                 return { ...s,
                     balance: s.balance ? BigInt(s.balance) : void 0,
@@ -4913,7 +4913,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     hash: o,
                     index: i
                 });
-                let d = e.chain ? .formatters ? .transaction ? .format || z.Tr;
+                let d = e.chain?.formatters?.transaction?.format || z.Tr;
                 return d(u)
             }
             async function getTransactionConfirmations(e, {
@@ -4922,8 +4922,8 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
             }) {
                 let [n, o] = await Promise.all([(0, v.s)(e, getBlockNumber, "getBlockNumber")({}), t ? (0, v.s)(e, getTransaction, "getBlockNumber")({
                     hash: t
-                }) : void 0]), i = r ? .blockNumber || o ? .blockNumber;
-                return i ? n - i + 1 n : 0 n
+                }) : void 0]), i = r?.blockNumber || o?.blockNumber;
+                return i ? n - i + 1 : 0
             }
             var W = r(58046),
                 H = r(30304);
@@ -4937,7 +4937,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 if (!r) throw new L.Yb({
                     hash: t
                 });
-                let n = e.chain ? .formatters ? .transactionReceipt ? .format || H.f;
+                let n = e.chain?.formatters?.transactionReceipt?.format || H.f;
                 return n(r)
             }
             async function multicall(e, t) {
@@ -4948,7 +4948,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     blockTag: l,
                     contracts: d,
                     multicallAddress: m
-                } = t, b = n ? ? ("object" == typeof e.batch ? .multicall && e.batch.multicall.batchSize || 1024), y = m;
+                } = t, b = n || ("object" == typeof e.batch?.multicall && e.batch.multicall.batchSize || 1024), y = m;
                 if (!y) {
                     if (!e.chain) throw Error("client chain not configured. multicallAddress is required.");
                     y = (0, c.L)({
@@ -5110,7 +5110,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         args: n,
                         docsPath: "/docs/contract/simulateContract",
                         functionName: c,
-                        sender: l ? .address
+                        sender: l?.address
                     })
                 }
             }
@@ -5147,7 +5147,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         let r = (0, g.v)(e) ? (0, b.O0)(e) : e,
                             n = (0, g.v)(t) ? (0, b.O0)(t) : t;
                         return (0, K.Wd)(r, n)
-                    }(n ? ? "0x0", "0x1")
+                    }(n || "0x0", "0x1")
                 } catch (e) {
                     if (e instanceof p.cg) return !1;
                     throw e
@@ -5215,7 +5215,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                 for (let e in t) i[e] = (...t) => {
                     let r = getListeners();
                     if (0 !== r.length)
-                        for (let n of r) n.fns[e] ? .(...t)
+                        for (let n of r) n.fns[e]?.(...t)
                 };
                 let s = r(i);
                 return "function" == typeof s && Y.set(e, s), unwatch
@@ -5236,7 +5236,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         t && (i = await e({
                             unpoll: unwatch
                         }));
-                        let s = await r ? .(i) ? ? n;
+                        let s = await r?.(i) || n;
                         await (0, en.D)(s);
                         let poll = async () => {
                             o && (await e({
@@ -5271,10 +5271,10 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             if (c) {
                                 if (t === c) return;
                                 if (t - c > 1 && r)
-                                    for (let e = c + 1 n; e < t; e++) n.onBlockNumber(e, c), c = e
+                                    for (let e = c + 1 ; e < t; e++) n.onBlockNumber(e, c), c = e
                             }(!c || t > c) && (n.onBlockNumber(t, c), c = t)
                         } catch (e) {
-                            n.onError ? .(e)
+                            n.onError?.(e)
                         }
                     }, {
                         emitOnBegin: t,
@@ -5288,16 +5288,16 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             params: ["newHeads"],
                             onData(e) {
                                 if (!u) return;
-                                let t = (0, G.y_)(e.result ? .number);
+                                let t = (0, G.y_)(e.result?.number);
                                 n(t, c), c = t
                             },
                             onError(e) {
-                                o ? .(e)
+                                o?.(e)
                             }
                         });
                         l = t, u || l()
                     } catch (e) {
-                        o ? .(e)
+                        o?.(e)
                     }
                 })(), l)
             }
@@ -5333,7 +5333,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                     };
                                 try {
                                     if (u) {
-                                        if (t > 1 && (!u.blockNumber || l - u.blockNumber + 1 n < t)) return;
+                                        if (t > 1 && (!u.blockNumber || l - u.blockNumber + 1  < t)) return;
                                         done(() => n.resolve(u));
                                         return
                                     }
@@ -5348,7 +5348,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                             retryCount: 6
                                         }), d = !1), u = await (0, v.s)(e, getTransactionReceipt, "getTransactionReceipt")({
                                             hash: r
-                                        }), t > 1 && (!u.blockNumber || l - u.blockNumber + 1 n < t)) return;
+                                        }), t > 1 && (!u.blockNumber || l - u.blockNumber + 1  < t)) return;
                                     done(() => n.resolve(u))
                                 } catch (r) {
                                     if (s && (r instanceof L.Bh || r instanceof L.Yb)) try {
@@ -5372,10 +5372,10 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                         }) => e === c.from && t === c.nonce);
                                         if (!o || (u = await (0, v.s)(e, getTransactionReceipt, "getTransactionReceipt")({
                                                 hash: o.hash
-                                            }), t > 1 && (!u.blockNumber || l - u.blockNumber + 1 n < t))) return;
+                                            }), t > 1 && (!u.blockNumber || l - u.blockNumber + 1  < t))) return;
                                         let i = "replaced";
-                                        o.to === c.to && o.value === c.value ? i = "repriced" : o.from === o.to && 0 n === o.value && (i = "cancelled"), done(() => {
-                                            n.onReplaced ? .({
+                                        o.to === c.to && o.value === c.value ? i = "repriced" : o.from === o.to && 0  === o.value && (i = "cancelled"), done(() => {
+                                            n.onReplaced?.({
                                                 reason: i,
                                                 replacedTransaction: c,
                                                 transaction: o,
@@ -5450,7 +5450,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     }) {
                         let l, d, f;
                         let p = void 0 !== c ? c : "webSocket" !== e.transport.type,
-                            m = s ? ? !1;
+                            m = s || !1;
                         return p ? (() => {
                             let s = (0, er.P)(["watchBlocks", e.uid, r, n, m, u]);
                             return observe(s, {
@@ -5462,19 +5462,19 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                         blockTag: t,
                                         includeTransactions: m
                                     });
-                                    if (n.number && l ? .number) {
+                                    if (n.number && l?.number) {
                                         if (n.number === l.number) return;
                                         if (n.number - l.number > 1 && r)
-                                            for (let t = l ? .number + 1 n; t < n.number; t++) {
+                                            for (let t = l?.number + 1 ; t < n.number; t++) {
                                                 let r = await (0, v.s)(e, N.Q, "getBlock")({
                                                     blockNumber: t,
                                                     includeTransactions: m
                                                 });
                                                 o.onBlock(r, l), l = r
                                             }
-                                    }(!l ? .number || "pending" === t && !n ? .number || n.number && n.number > l.number) && (o.onBlock(n, l), l = n)
+                                    }(!l?.number || "pending" === t && !n?.number || n.number && n.number > l.number) && (o.onBlock(n, l), l = n)
                                 } catch (e) {
-                                    o.onError ? .(e)
+                                    o.onError?.(e)
                                 }
                             }, {
                                 emitOnBegin: n,
@@ -5488,17 +5488,17 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                     params: ["newHeads"],
                                     onData(t) {
                                         if (!d) return;
-                                        let r = e.chain ? .formatters ? .block ? .format || ea.Z,
+                                        let r = e.chain?.formatters?.block?.format || ea.Z,
                                             n = r(t.result);
                                         o(n, l), l = n
                                     },
                                     onError(e) {
-                                        i ? .(e)
+                                        i?.(e)
                                     }
                                 });
                                 f = t, d || f()
                             } catch (e) {
-                                i ? .(e)
+                                i?.(e)
                             }
                         })(), f)
                     })(e, t),
@@ -5519,7 +5519,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                         let m = void 0 !== u ? u : "webSocket" !== e.transport.type;
                         return m ? (() => {
                             let u = (0, er.P)(["watchContractEvent", r, n, o, e.uid, i, l]),
-                                f = d ? ? !1;
+                                f = d || !1;
                             return observe(u, {
                                 onLogs: c,
                                 onError: s
@@ -5552,7 +5552,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                                     address: r,
                                                     args: n,
                                                     eventName: i,
-                                                    fromBlock: c + 1 n,
+                                                    fromBlock: c + 1 ,
                                                     toBlock: o,
                                                     strict: f
                                                 }) : [], c = o
@@ -5562,7 +5562,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                             else
                                                 for (let e of l) s.onLogs([e])
                                         } catch (e) {
-                                            u && e instanceof E.yR && (d = !1), s.onError ? .(e)
+                                            u && e instanceof E.yR && (d = !1), s.onError?.(e)
                                         }
                                     }, {
                                         emitOnBegin: !0,
@@ -5609,7 +5609,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                                 let e, t;
                                                 if (o instanceof w.SM || o instanceof w.Gy) {
                                                     if (d) return;
-                                                    e = o.abiItem.name, t = o.abiItem.inputs ? .some(e => !("name" in e && e.name))
+                                                    e = o.abiItem.name, t = o.abiItem.inputs?.some(e => !("name" in e && e.name))
                                                 }
                                                 let n = (0, _.U)(r, {
                                                     args: t ? [] : {},
@@ -5619,12 +5619,12 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                             }
                                         },
                                         onError(e) {
-                                            s ? .(e)
+                                            s?.(e)
                                         }
                                     });
                                 p = u, f || p()
                             } catch (e) {
-                                s ? .(e)
+                                s?.(e)
                             }
                         })(), p)
                     })(e, t),
@@ -5642,7 +5642,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     }) {
                         let f, p;
                         let m = void 0 !== u ? u : "webSocket" !== e.transport.type,
-                            b = d ? ? !1;
+                            b = d || !1;
                         return m ? (() => {
                             let u = (0, er.P)(["watchEvent", t, r, n, e.uid, o, l]);
                             return observe(u, {
@@ -5677,7 +5677,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                                     args: r,
                                                     event: o,
                                                     events: i,
-                                                    fromBlock: c + 1 n,
+                                                    fromBlock: c + 1 ,
                                                     toBlock: n
                                                 }) : [], c = n
                                             }
@@ -5686,7 +5686,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                             else
                                                 for (let e of l) s.onLogs([e])
                                         } catch (e) {
-                                            u && e instanceof E.yR && (d = !1), s.onError ? .(e)
+                                            u && e instanceof E.yR && (d = !1), s.onError?.(e)
                                         }
                                     }, {
                                         emitOnBegin: !0,
@@ -5700,7 +5700,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             })
                         })() : (f = !0, p = () => f = !1, (async () => {
                             try {
-                                let n = i ? ? (o ? [o] : void 0),
+                                let n = i || (o ? [o] : void 0),
                                     u = [];
                                 n && (u = [n.flatMap(e => encodeEventTopics({
                                     abi: [e],
@@ -5735,7 +5735,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                             let e, r;
                                             if (o instanceof w.SM || o instanceof w.Gy) {
                                                 if (d) return;
-                                                e = o.abiItem.name, r = o.abiItem.inputs ? .some(e => !("name" in e && e.name))
+                                                e = o.abiItem.name, r = o.abiItem.inputs?.some(e => !("name" in e && e.name))
                                             }
                                             let n = (0, _.U)(t, {
                                                 args: r ? [] : {},
@@ -5745,12 +5745,12 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                         }
                                     },
                                     onError(e) {
-                                        s ? .(e)
+                                        s?.(e)
                                     }
                                 });
                                 p = l, f || p()
                             } catch (e) {
-                                s ? .(e)
+                                s?.(e)
                             }
                         })(), p)
                     })(e, t),
@@ -5786,7 +5786,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                         else
                                             for (let e of i) r.onTransactions([e])
                                     } catch (e) {
-                                        r.onError ? .(e)
+                                        r.onError?.(e)
                                     }
                                 }, {
                                     emitOnBegin: !0,
@@ -5810,12 +5810,12 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                                         n([t])
                                     },
                                     onError(e) {
-                                        r ? .(e)
+                                        r?.(e)
                                     }
                                 });
                                 c = t, s || c()
                             } catch (e) {
-                                r ? .(e)
+                                r?.(e)
                             }
                         })(), c)
                     })(e, t)
@@ -5930,7 +5930,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             ...T
                         });
                         r || (r = await (0, y.s)(e, o.L, "getChainId")({}));
-                        let c = n ? .serializers ? .transaction,
+                        let c = n?.serializers?.transaction,
                             u = await I.signTransaction({ ...t,
                                 chainId: r
                             }, {
@@ -5940,7 +5940,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             serializedTransaction: u
                         })
                     }
-                    let c = e.chain ? .formatters ? .transactionRequest ? .format,
+                    let c = e.chain?.formatters?.transactionRequest?.format,
                         u = c || b.tG,
                         d = u({ ...(0, m.K)(T, {
                                 format: c
@@ -5981,7 +5981,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
             }
             var E = r(70278);
             async function getAddresses(e) {
-                if (e.account ? .type === "local") return [e.account.address];
+                if (e.account?.type === "local") return [e.account.address];
                 let t = await e.request({
                     method: "eth_accounts"
                 });
@@ -6041,12 +6041,12 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     currentChainId: d,
                     chain: n
                 });
-                let f = n ? .formatters || e.chain ? .formatters,
-                    p = f ? .transactionRequest ? .format || b.tG;
+                let f = n?.formatters || e.chain?.formatters,
+                    p = f?.transactionRequest?.format || b.tG;
                 return "local" === l.type ? l.signTransaction({ ...s,
                     chainId: d
                 }, {
-                    serializer: e.chain ? .serializers ? .transaction
+                    serializer: e.chain?.serializers?.transaction
                 }) : await e.request({
                     method: "eth_signTransaction",
                     params: [{ ...p(s),
@@ -6087,7 +6087,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     message: n
                 });
                 let d = (0, P.P)({
-                    domain: r ? ? {},
+                    domain: r || {},
                     primaryType: o,
                     types: l,
                     message: n
@@ -6242,7 +6242,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     key: r,
                     name: o,
                     request: e.request.bind(e),
-                    retryCount: t.retryCount ? ? s,
+                    retryCount: t.retryCount || s,
                     retryDelay: i,
                     type: "custom"
                 })
@@ -6375,7 +6375,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                             rankTransports_()
                         }({
                             chain: t,
-                            interval: e.interval ? ? d,
+                            interval: e.interval || d,
                             onTransports: e => p = e,
                             sampleCount: e.sampleCount,
                             timeout: e.timeout,
@@ -6415,7 +6415,7 @@ Read more: https://wagmi.sh/core/providers/jsonRpc`)
                     let {
                         batchSize: y = 1e3,
                         wait: g = 0
-                    } = "object" == typeof r ? r : {}, v = t.retryCount ? ? m, w = b ? ? t.timeout ? ? 1e4, E = e || p ? .rpcUrls.default.http[0];
+                    } = "object" == typeof r ? r : {}, v = t.retryCount || m, w = b || t.timeout || 1e4, E = e || p?.rpcUrls.default.http[0];
                     if (!E) throw new o.I;
                     return (0, c.q)({
                         key: l,
@@ -7165,13 +7165,13 @@ Valid types: "function", "event", "error"`), Object.defineProperty(this, "name",
                         writable: !0,
                         value: (0, n.bo)()
                     });
-                    let r = t.cause instanceof BaseError ? t.cause.details : t.cause ? .message ? t.cause.message : t.details,
+                    let r = t.cause instanceof BaseError ? t.cause.details : t.cause?.message ? t.cause.message : t.details,
                         o = t.cause instanceof BaseError && t.cause.docsPath || t.docsPath;
                     this.message = [e || "An error occurred.", "", ...t.metaMessages ? [...t.metaMessages, ""] : [], ...o ? [`Docs: https://viem.sh${o}.html${t.docsSlug?`#${t.docsSlug}`:""}`] : [], ...r ? [`Details: ${r}`] : [], `Version: ${this.version}`].join("\n"), t.cause && (this.cause = t.cause), this.details = r, this.docsPath = o, this.metaMessages = t.metaMessages, this.shortMessage = e
                 }
                 walk(e) {
                     return function walk(e, t) {
-                        return t ? .(e) ? e : e && "object" == typeof e && "cause" in e ? walk(e.cause, t) : t ? null : e
+                        return t?.(e) ? e : e && "object" == typeof e && "cause" in e ? walk(e.cause, t) : t ? null : e
                     }(this, e)
                 }
             }
@@ -7336,7 +7336,7 @@ Valid types: "function", "event", "error"`), Object.defineProperty(this, "name",
                 }) {
                     let g = t ? (0, n.T)(t) : void 0,
                         v = (0, m.xr)({
-                            from: g ? .address,
+                            from: g?.address,
                             to: b,
                             value: void 0 !== y && `${(0,l.d)(y)} ${o?.nativeCurrency?.symbol||"ETH"}`,
                             data: i,
@@ -7725,7 +7725,7 @@ Valid types: "function", "event", "error"`), Object.defineProperty(this, "name",
                     cause: e,
                     message: t
                 } = {}) {
-                    let r = t ? .replace("execution reverted: ", "") ? .replace("execution reverted", "");
+                    let r = t?.replace("execution reverted: ", "")?.replace("execution reverted", "");
                     super(`Execution reverted ${r?`with reason: ${r}`:"for an unknown reason"}.`, {
                         cause: e
                     }), Object.defineProperty(this, "name", {
@@ -8159,7 +8159,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                     super(i, {
                         cause: e,
                         docsPath: r,
-                        metaMessages: n || e ? .metaMessages
+                        metaMessages: n || e?.metaMessages
                     }), Object.defineProperty(this, "name", {
                         enumerable: !0,
                         configurable: !0,
@@ -8170,7 +8170,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                         configurable: !0,
                         writable: !0,
                         value: void 0
-                    }), this.name = e.name, this.code = e instanceof o.bs ? e.code : t ? ? -1
+                    }), this.name = e.name, this.code = e instanceof o.bs ? e.code : t || -1
                 }
             };
             let ProviderRpcError = class ProviderRpcError extends RpcError {
@@ -8646,7 +8646,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                 }) {
                     let b = prettyPrint({
                         chain: i && `${i?.name} (id: ${i?.id})`,
-                        from: t ? .address,
+                        from: t?.address,
                         to: p,
                         value: void 0 !== m && `${(0,n.d)(m)} ${i?.nativeCurrency?.symbol||"ETH"}`,
                         data: s,
@@ -8820,7 +8820,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                                         }
                                         if (hasDynamicChild(t)) {
                                             let o = (0, l.S)(t.type),
-                                                i = !o ? .[0],
+                                                i = !o?.[0],
                                                 c = 0,
                                                 d = [];
                                             for (let o = 0; o < r; ++o) {
@@ -8881,7 +8881,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                                                     param: u,
                                                     position: i
                                                 });
-                                            i += l.consumed, o[n ? r : u ? .name] = l.value
+                                            i += l.consumed, o[n ? r : u?.name] = l.value
                                         }
                                         return {
                                             consumed: 32,
@@ -8895,7 +8895,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                                                 param: c,
                                                 position: r + i
                                             });
-                                        i += u.consumed, o[n ? s : c ? .name] = u.value
+                                        i += u.consumed, o[n ? s : c?.name] = u.value
                                     }
                                     return {
                                         consumed: i,
@@ -9012,7 +9012,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                     type: t
                 } = e;
                 if ("string" === t || "bytes" === t || t.endsWith("[]")) return !0;
-                if ("tuple" === t) return e.components ? .some(hasDynamicChild);
+                if ("tuple" === t) return e.components?.some(hasDynamicChild);
                 let r = (0, l.S)(e.type);
                 return !!(r && hasDynamicChild({ ...e,
                     type: r[1]
@@ -9068,7 +9068,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                 strict: r,
                 topics: u
             }) {
-                let l = r ? ? !0,
+                let l = r || !0,
                     [d, ...f] = u;
                 if (!d) throw new n.FM({
                     docsPath: c
@@ -9080,7 +9080,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                 let {
                     name: m,
                     inputs: b
-                } = p, y = b ? .some(e => !("name" in e && e.name)), g = y ? [] : {}, v = b.filter(e => "indexed" in e && e.indexed);
+                } = p, y = b?.some(e => !("name" in e && e.name)), g = y ? [] : {}, v = b.filter(e => "indexed" in e && e.indexed);
                 for (let e = 0; e < v.length; e++) {
                     let t = v[e],
                         r = f[e];
@@ -9450,8 +9450,8 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                 });
                 let d = (0, c.t)(l),
                     f = (0, i.o)(d),
-                    p = "inputs" in l && l.inputs ? (0, s.E)(l.inputs, t ? ? []) : void 0;
-                return (0, o.SM)([f, p ? ? "0x"])
+                    p = "inputs" in l && l.inputs ? (0, s.E)(l.inputs, t || []) : void 0;
+                return (0, o.SM)([f, p || "0x"])
             }
         },
         44682: function(e, t, r) {
@@ -9668,8 +9668,8 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                         error: r
                     }) => {
                         if (r && r instanceof o.Gg) {
-                            let e = r ? .headers ? .get("Retry-After");
-                            if (e ? .match(/\d/)) return 1e3 * parseInt(e)
+                            let e = r?.headers?.get("Retry-After");
+                            if (e?.match(/\d/)) return 1e3 * parseInt(e)
                         }
                         return ~~(1 << e) * t
                     },
@@ -9713,7 +9713,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                 chain: t,
                 contract: r
             }) {
-                let o = t ? .contracts ? .[r];
+                let o = t?.contracts?.[r];
                 if (!o) throw new n.mm({
                     chain: t,
                     contract: {
@@ -9942,8 +9942,8 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                 let n = BigInt(e);
                 if (!r) return n;
                 let o = (e.length - 2) / 2,
-                    i = (1 n << 8 n * BigInt(o) - 1 n) - 1 n;
-                return n <= i ? n : n - BigInt(`0x${"f".padStart(2*o,"f")}`) - 1 n
+                    i = (1n << 8n * BigInt(o) - 1n) - 1n;
+                return n <= i ? n : n - BigInt(`0x${"f".padStart(2*o,"f")}`) - 1n
             }
 
             function hexToBool(e, t = {}) {
@@ -10100,8 +10100,8 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                     signed: i,
                     size: s
                 } = t, c = BigInt(e);
-                s ? r = i ? (1 n << 8 n * BigInt(s) - 1 n) - 1 n : 2 n ** (8 n * BigInt(s)) - 1 n : "number" == typeof e && (r = BigInt(Number.MAX_SAFE_INTEGER));
-                let u = "bigint" == typeof r && i ? -r - 1 n : 0;
+                s ? r = i ? (1n << 8n * BigInt(s) - 1n) - 1n : 2n ** (8n * BigInt(s)) - 1n : "number" == typeof e && (r = BigInt(Number.MAX_SAFE_INTEGER));
+                let u = "bigint" == typeof r && i ? -r - 1n : 0;
                 if (r && c > r || c < u) {
                     let t = "bigint" == typeof e ? "n" : "";
                     throw new n.J5({
@@ -10112,7 +10112,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                         value: `${e}${t}`
                     })
                 }
-                let l = `0x${(i&&c<0?(1n<<BigInt(8*s))+BigInt(c):c).toString(16)}`;
+                let l = `0x${(i && c < 0 ? (1n << BigInt(8 * s)) + BigInt(c) : c).toString(16)}`;
                 return s ? (0, o.vk)(l, {
                     size: s
                 }) : l
@@ -10144,33 +10144,33 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                     message: e.details
                 }) : o.Hh.nodeMessage.test(r) ? new o.Hh({
                     cause: e,
-                    maxFeePerGas: t ? .maxFeePerGas
+                    maxFeePerGas: t?.maxFeePerGas
                 }) : o.G$.nodeMessage.test(r) ? new o.G$({
                     cause: e,
-                    maxFeePerGas: t ? .maxFeePerGas
+                    maxFeePerGas: t?.maxFeePerGas
                 }) : o.ZI.nodeMessage.test(r) ? new o.ZI({
                     cause: e,
-                    nonce: t ? .nonce
+                    nonce: t?.nonce
                 }) : o.vU.nodeMessage.test(r) ? new o.vU({
                     cause: e,
-                    nonce: t ? .nonce
+                    nonce: t?.nonce
                 }) : o.se.nodeMessage.test(r) ? new o.se({
                     cause: e,
-                    nonce: t ? .nonce
+                    nonce: t?.nonce
                 }) : o.C_.nodeMessage.test(r) ? new o.C_({
                     cause: e
                 }) : o.WF.nodeMessage.test(r) ? new o.WF({
                     cause: e,
-                    gas: t ? .gas
+                    gas: t?.gas
                 }) : o.dR.nodeMessage.test(r) ? new o.dR({
                     cause: e,
-                    gas: t ? .gas
+                    gas: t?.gas
                 }) : o.pZ.nodeMessage.test(r) ? new o.pZ({
                     cause: e
                 }) : o.cs.nodeMessage.test(r) ? new o.cs({
                     cause: e,
-                    maxFeePerGas: t ? .maxFeePerGas,
-                    maxPriorityFeePerGas: t ? .maxPriorityFeePerGas
+                    maxFeePerGas: t?.maxFeePerGas,
+                    maxPriorityFeePerGas: t?.maxPriorityFeePerGas
                 }) : new o.cj({
                     cause: e
                 })
@@ -10189,7 +10189,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                 o = r(94605);
 
             function formatBlock(e) {
-                let t = e.transactions ? .map(e => "string" == typeof e ? e : o.Tr(e));
+                let t = e.transactions?.map(e => "string" == typeof e ? e : o.Tr(e));
                 return { ...e,
                     baseFeePerGas: e.baseFeePerGas ? BigInt(e.baseFeePerGas) : null,
                     difficulty: e.difficulty ? BigInt(e.difficulty) : void 0,
@@ -10294,7 +10294,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                 "0x1": "eip2930",
                 "0x2": "eip1559"
             };
-
+        
             function formatTransaction(e) {
                 let t = { ...e,
                     blockHash: e.blockHash ? e.blockHash : null,
@@ -10315,9 +10315,9 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                 return t.yParity = (() => {
                     if (e.yParity) return Number(e.yParity);
                     if ("bigint" == typeof t.v) {
-                        if (0 n === t.v || 27 n === t.v) return 0;
-                        if (1 n === t.v || 28 n === t.v) return 1;
-                        if (t.v >= 35 n) return t.v % 2 n === 0 n ? 1 : 0
+                        if (0n === t.v || 27n === t.v) return 0;
+                        if (1n === t.v || 28n === t.v) return 1;
+                        if (t.v >= 35n) return t.v % 2n === 0n ? 1 : 0
                     }
                 })(), "legacy" === t.type && (delete t.accessList, delete t.maxFeePerGas, delete t.maxPriorityFeePerGas, delete t.yParity), "eip2930" === t.type && (delete t.maxFeePerGas, delete t.maxPriorityFeePerGas), t
             }
@@ -10395,7 +10395,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
             });
 
             function getAction(e, t, r) {
-                return n => e[t.name || r] ? .(n) ? ? t(e, n)
+                return n => e[t.name || r]?.(n) || t(e, n)
             }
         },
         20553: function(e, t, r) {
@@ -10678,14 +10678,14 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                                 let {
                                     pendingPromise: n
                                 } = t[r];
-                                n.resolve ? .([e[r], e])
+                                n.resolve?.([e[r], e])
                             }
                         }).catch(e => {
                             for (let r = 0; r < t.length; r++) {
                                 let {
                                     pendingPromise: n
                                 } = t[r];
-                                n.reject ? .(e)
+                                n.reject?.(e)
                             }
                         })
                     },
@@ -10702,7 +10702,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                             n = new Promise((e, r) => {
                                 t.resolve = e, t.reject = r
                             }),
-                            i = r ? .([...getBatchedArgs(), e]);
+                            i = r?.([...getBatchedArgs(), e]);
                         i && exec();
                         let s = getScheduler().length > 0;
                         return s ? setScheduler({
@@ -10793,7 +10793,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                             r > 0 && (s = setTimeout(() => {
                                 n ? c.abort() : i(t)
                             }, r)), o(await e({
-                                signal: c ? .signal
+                                signal: c?.signal
                             }))
                         } catch (e) {
                             "AbortError" === e.name && i(t), i(e)
@@ -10823,11 +10823,11 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                         let d = await fetch(e, { ...r,
                             body: Array.isArray(t) ? (0, s.P)(t.map(e => ({
                                 jsonrpc: "2.0",
-                                id: e.id ? ? c++,
+                                id: e.id || c++,
                                 ...e
                             }))) : (0, s.P)({
                                 jsonrpc: "2.0",
-                                id: t.id ? ? c++,
+                                id: t.id || c++,
                                 ...t
                             }),
                             headers: { ...i,
@@ -10845,7 +10845,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                         timeout: n,
                         signal: !0
                     });
-                    if (d = f.headers.get("Content-Type") ? .startsWith("application/json") ? await f.json() : await f.text(), !f.ok) throw new o.Gg({
+                    if (d = f.headers.get("Content-Type")?.startsWith("application/json") ? await f.json() : await f.text(), !f.ok) throw new o.Gg({
                         body: t,
                         details: (0, s.P)(d.error) || f.statusText,
                         headers: f.headers,
@@ -10930,7 +10930,7 @@ Try increasing the nonce or find the latest nonce with \`getTransactionCount\`.`
                             data: o
                         }) => {
                             let i = JSON.parse(o);
-                            ("number" != typeof i.id || n === i.id) && (r ? .(i), "eth_subscribe" === t.method && "string" == typeof i.result && e.subscriptions.set(i.result, callback), "eth_unsubscribe" === t.method && e.subscriptions.delete(t.params ? .[0]))
+                            ("number" != typeof i.id || n === i.id) && (r?.(i), "eth_subscribe" === t.method && "string" == typeof i.result && e.subscriptions.set(i.result, callback), "eth_unsubscribe" === t.method && e.subscriptions.delete(t.params?.[0]))
                         };
                     return e.requests.set(n, callback), e.send(JSON.stringify({
                         jsonrpc: "2.0",
@@ -11036,7 +11036,7 @@ ${r.length}`);
                                         types: t
                                     }, r = new Set) {
                                         let n = e.match(/^\w*/u),
-                                            o = n ? .[0];
+                                            o = n?.[0];
                                         if (r.has(o) || void 0 === t[o]) return r;
                                         for (let e of (r.add(o), t[o])) findTypeDependencies({
                                             primaryType: e.type,
@@ -11160,7 +11160,7 @@ ${r.length}`);
                     address: d
                 });
                 if (void 0 !== r && (void 0 !== u || void 0 !== l)) throw new s.xY;
-                if (u && u > 2 n ** 256 n - 1 n) throw new i.Hh({
+                if (u && u > 2n ** 256n - 1n) throw new i.Hh({
                     maxFeePerGas: u
                 });
                 if (l && u && l > u) throw new i.cs({
@@ -11246,19 +11246,19 @@ ${r.length}`);
             function getTypesForEIP712Domain({
                 domain: e
             }) {
-                return ["string" == typeof e ? .name && {
+                return ["string" == typeof e?.name && {
                     name: "name",
                     type: "string"
-                }, e ? .version && {
+                }, e?.version && {
                     name: "version",
                     type: "string"
-                }, "number" == typeof e ? .chainId && {
+                }, "number" == typeof e?.chainId && {
                     name: "chainId",
                     type: "uint256"
-                }, e ? .verifyingContract && {
+                }, e?.verifyingContract && {
                     name: "verifyingContract",
                     type: "address"
-                }, e ? .salt && {
+                }, e?.salt && {
                     name: "salt",
                     type: "bytes32"
                 }].filter(Boolean)
@@ -11486,9 +11486,9 @@ ${r.length}`);
                             }, [p, m]), p.suspense && b.isLoading && b.isFetching && !i) throw m.fetchOptimistic(p).then(({
                             data: e
                         }) => {
-                            p.onSuccess ? .(e), p.onSettled ? .(e, null)
+                            p.onSuccess?.(e), p.onSettled?.(e, null)
                         }).catch(e => {
-                            s.clearReset(), p.onError ? .(e), p.onSettled ? .(void 0, e)
+                            s.clearReset(), p.onError?.(e), p.onSettled?.(void 0, e)
                         });
                         if (b.isError && !s.isReset() && !b.isFetching && (r = p.useErrorBoundary, n = [b.error, m.getCurrentQuery()], "function" == typeof r ? r(...n) : !!r)) throw b.error;
                         let y = "loading" === b.status && "idle" === b.fetchStatus ? "idle" : b.status,
@@ -11673,14 +11673,14 @@ ${r.length}`);
                             chainId: e
                         }), () => (0, s.jr)({
                             chainId: e
-                        }), e => e, (e, t) => e ? .uid === t ? .uid)
+                        }), e => e, (e, t) => e?.uid === t?.uid)
                     }({
                         chainId: m
                     }),
                     v = useQueryClient2();
                 return u.useEffect(() => {
                     if (!r || !c && !l) return;
-                    let e = y ? ? b,
+                    let e = y || b,
                         t = e.watchBlockNumber({
                             onBlockNumber: e => {
                                 c && v.setQueryData(queryKey2({
@@ -11761,11 +11761,11 @@ ${r.length}`);
                     i = u.useRef(),
                     c = i.current;
                 return u.useEffect(() => {
-                    c ? .status !== "connected" && "connected" === o.status && e ? .({
+                    c?.status !== "connected" && "connected" === o.status && e?.({
                         address: o.address,
                         connector: o.connector,
-                        isReconnected: c ? .status === "reconnecting" || c ? .status === void 0
-                    }), c ? .status === "connected" && "disconnected" === o.status && t ? .(), i.current = o
+                        isReconnected: c?.status === "reconnecting" || c?.status === void 0
+                    }), c?.status === "connected" && "disconnected" === o.status && t?.(), i.current = o
                 }, [e, t, c, o]), o
             }
 
@@ -11888,12 +11888,12 @@ ${r.length}`);
                         onSuccess: i
                     }),
                     E = u.useCallback(r => b({
-                        chainId: r ? .chainId ? ? e,
-                        connector: r ? .connector ? ? t
+                        chainId: r?.chainId || e,
+                        connector: r?.connector || t
                     }), [e, t, b]),
                     C = u.useCallback(r => y({
-                        chainId: r ? .chainId ? ? e,
-                        connector: r ? .connector ? ? t
+                        chainId: r?.chainId || e,
+                        connector: r?.connector || t
                     }), [e, t, y]);
                 return {
                     connect: E,
@@ -11905,7 +11905,7 @@ ${r.length}`);
                     isIdle: f,
                     isLoading: p,
                     isSuccess: m,
-                    pendingConnector: w ? .connector,
+                    pendingConnector: w?.connector,
                     reset: g,
                     status: v,
                     variables: w
@@ -12016,10 +12016,10 @@ ${r.length}`);
                         onSuccess: i
                     }),
                     x = u.useCallback(t => v({
-                        chainId: t ? ? e
+                        chainId: t || e
                     }), [e, v]),
                     k = u.useCallback(t => w({
-                        chainId: t ? ? e
+                        chainId: t || e
                     }), [e, w]);
                 u.useEffect(() => {
                     let e = l.subscribe(({
@@ -12031,16 +12031,16 @@ ${r.length}`);
                     }), d);
                     return e
                 }, [l, d]);
-                let S = !!l.connector ? .switchChain;
+                let S = !!l.connector?.switchChain;
                 return (t || S) && (s = x, c = k), {
-                    chains: l.chains ? ? [],
+                    chains: l.chains || [],
                     data: f,
                     error: p,
                     isError: m,
                     isIdle: b,
                     isLoading: y,
                     isSuccess: g,
-                    pendingChainId: P ? .chainId,
+                    pendingChainId: P?.chainId,
                     reset: E,
                     status: C,
                     switchNetwork: s,
@@ -12084,7 +12084,7 @@ ${r.length}`);
                         scopeKey: S || c ? void 0 : "idle",
                         watch: S
                     }),
-                    A = o ? ? I,
+                    A = o || I,
                     R = u.useMemo(() => (function({
                         account: e,
                         address: t,
@@ -12149,7 +12149,7 @@ ${r.length}`);
                             chainId: c,
                             abi: e,
                             functionName: u
-                        }) ? ? null
+                        }) || null
                     }
                 }({
                     abi: e
@@ -12188,7 +12188,7 @@ ${r.length}`);
                 suspense: E,
                 watch: C
             } = {}) {
-                let P = e ? ? !0,
+                let P = e || !0,
                     {
                         data: x
                     } = useBlockNumber({
@@ -12196,7 +12196,7 @@ ${r.length}`);
                         watch: C
                     }),
                     k = useChainId(),
-                    S = t ? ? x,
+                    S = t || x,
                     T = u.useMemo(() => (function({
                         allowFailure: e,
                         blockNumber: t,
@@ -12212,7 +12212,7 @@ ${r.length}`);
                             blockTag: r,
                             chainId: n,
                             scopeKey: i,
-                            contracts: (o ? ? []).map(({
+                            contracts: (o || []).map(({
                                 address: e,
                                 args: t,
                                 chainId: r,
@@ -12233,14 +12233,14 @@ ${r.length}`);
                         scopeKey: y
                     }), [P, S, r, n, k, y, i]),
                     I = u.useMemo(() => {
-                        let e = !!(c && i ? .every(e => e.abi && e.address && e.functionName));
+                        let e = !!(c && i?.every(e => e.abi && e.address && e.functionName));
                         return n && (e = !!(e && S)), e
                     }, [S, n, i, c]);
                 useInvalidateOnBlock({
                     enabled: !!(I && C && !n),
                     queryKey: T
                 });
-                let A = (i ? ? []).map(({
+                let A = (i || []).map(({
                     abi: e
                 }) => e);
                 return useQuery(T, function({

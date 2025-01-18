@@ -220,12 +220,12 @@
                                                 var n = r.join("-");
                                                 return e.validators.find(function(r) {
                                                     return (0, r.validator)(n)
-                                                }) ? .classGroupId
+                                                })?.classGroupId
                                             }
                                         }(e, u) || function(r) {
                                             if (o.test(r)) {
                                                 var e = o.exec(r)[1],
-                                                    t = e ? .substring(0, e.indexOf(":"));
+                                                    t = e?.substring(0, e.indexOf(":"));
                                                 if (t) return "arbitrary.." + t
                                             }
                                         }(r)

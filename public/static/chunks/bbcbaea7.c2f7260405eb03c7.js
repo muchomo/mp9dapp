@@ -262,7 +262,7 @@
                     for (let t of (n.isSigner = !0, n.isWritable = !0, e))
                         for (let e of (getOrInsertDefault(t.programId).isInvoked = !0, t.keys)) {
                             let t = getOrInsertDefault(e.pubkey);
-                            t.isSigner || = e.isSigner, t.isWritable || = e.isWritable
+                            t.isSigner || e.isSigner, t.isWritable || e.isWritable
                         }
                     return new CompiledKeys(t, r)
                 }
@@ -889,7 +889,7 @@
                     for (let {
                             signature: n,
                             publicKey: i
-                        } of this.signatures) null === n ? t && (r.missing || = []).push(i) : m(n, e, i.toBytes()) || (r.invalid || = []).push(i);
+                        } of this.signatures) null === n ? t && (r.missing || []).push(i) : m(n, e, i.toBytes()) || (r.invalid || []).push(i);
                     return r.invalid || r.missing ? r : void 0
                 }
                 serialize(e) {
@@ -984,7 +984,7 @@ Missing signature for public key${1===e.missing.length?"":"(s)"} [\`${e.missing.
                     },
                     o = await e.sendTransaction(t, r, s);
                 if (null != t.recentBlockhash && null != t.lastValidBlockHeight) i = (await e.confirmTransaction({
-                    abortSignal: n ? .abortSignal,
+                    abortSignal: n ? n.abortSignal : undefined,
                     signature: o,
                     blockhash: t.recentBlockhash,
                     lastValidBlockHeight: t.lastValidBlockHeight
@@ -994,13 +994,16 @@ Missing signature for public key${1===e.missing.length?"":"(s)"} [\`${e.missing.
                         nonceInstruction: r
                     } = t.nonceInfo, s = r.keys[0].pubkey;
                     i = (await e.confirmTransaction({
-                        abortSignal: n ? .abortSignal,
+                        abortSignal: n ? n.abortSignal: undefined,
                         minContextSlot: t.minNonceContextSlot,
                         nonceAccountPubkey: s,
                         nonceValue: t.nonceInfo.nonce,
                         signature: o
                     }, n && n.commitment)).value
-                } else n ? .abortSignal != null && console.warn("sendAndConfirmTransaction(): A transaction with a deprecated confirmation strategy was supplied along with an `abortSignal`. Only transactions having `lastValidBlockHeight` or a combination of `nonceInfo` and `minNonceContextSlot` are abortable."), i = (await e.confirmTransaction(o, n && n.commitment)).value;
+                }else if (n && n.abortSignal != null) {
+                    console.warn("sendAndConfirmTransaction(): A transaction with a deprecated confirmation strategy was supplied along with an `abortSignal`. Only transactions having `lastValidBlockHeight` or a combination of `nonceInfo` and `minNonceContextSlot` are abortable.");
+                    i = (await e.confirmTransaction(o, n && n.commitment)).value;
+                }
                 if (i.err) throw Error(`Transaction ${o} failed (${JSON.stringify(i)})`);
                 return o
             }
@@ -2013,7 +2016,7 @@ Missing signature for public key${1===e.missing.length?"":"(s)"} [\`${e.missing.
             });
             let Keypair = class Keypair {
                 constructor(e) {
-                    this._keypair = void 0, this._keypair = e ? ? generateKeypair()
+                    this._keypair = void 0, this._keypair = e || generateKeypair()
                 }
                 static generate() {
                     return new Keypair(generateKeypair())

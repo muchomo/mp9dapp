@@ -3112,13 +3112,13 @@
                     let {
                         error: t
                     } = this.state;
-                    null !== t && (this.props.onReset ? .({
+                    null !== t && (this.props.onReset?.({
                         args: e,
                         reason: "imperative-api"
                     }), this.setState(a))
                 };
                 componentDidCatch(e, t) {
-                    this.props.onError ? .(e, t)
+                    this.props.onError?.(e, t)
                 }
                 componentDidUpdate(e, t) {
                     let {
@@ -3128,7 +3128,7 @@
                     } = this.props;
                     n && null !== t.error && function(e = [], t = []) {
                         return e.length !== t.length || e.some((e, n) => !Object.is(e, t[n]))
-                    }(e.resetKeys, i) && (this.props.onReset ? .({
+                    }(e.resetKeys, i) && (this.props.onReset?.({
                         next: i,
                         prev: e.resetKeys,
                         reason: "keys"
@@ -3174,7 +3174,7 @@
                     hasError: !1
                 }), a = (0, i.useMemo)(() => ({
                     resetBoundary: () => {
-                        e ? .resetErrorBoundary(), n({
+                        e?.resetErrorBoundary(), n({
                             error: null,
                             hasError: !1
                         })
@@ -3183,7 +3183,7 @@
                         error: e,
                         hasError: !0
                     })
-                }), [e ? .resetErrorBoundary]);
+                }), [e?.resetErrorBoundary]);
                 if (t.hasError) throw t.error;
                 return a
             }

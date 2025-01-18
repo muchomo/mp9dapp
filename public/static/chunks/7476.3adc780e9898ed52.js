@@ -6894,7 +6894,7 @@
                                 let {
                                     r: ep,
                                     s: eg
-                                } = ec, em = ef(C), e_ = invert(eg, U), eb = modN(em * e_), ew = modN(ep * e_), eE = es.BASE.multiplyAndAddUnsafe(el, eb, ew) ? .toAffine();
+                                } = ec, em = ef(C), e_ = invert(eg, U), eb = modN(em * e_), ew = modN(ep * e_), eE = es.BASE.multiplyAndAddUnsafe(el, eb, ew)?.toAffine();
                                 if (!eE) return !1;
                                 let eI = modN(eE.x);
                                 return eI === ep
@@ -7017,7 +7017,7 @@
                     response: required({
                         clientDataJSON: required(td),
                         attestationObject: required(td),
-                        transports: derived(tc, r => r.getTransports ? .() || [])
+                        transports: derived(tc, r => r.getTransports?.() || [])
                     }),
                     clientExtensionResults: derived(th, r => r.getClientExtensionResults())
                 };
@@ -7086,7 +7086,7 @@
             let TurnkeyRequestError = class TurnkeyRequestError extends Error {
                 constructor(r) {
                     let l = `Turnkey error ${r.code}: ${r.message}`;
-                    null != r.details && (l += ` (Details: ${JSON.stringify(r.details)})`), super(l), this.name = "TurnkeyRequestError", this.details = r.details ? ? null, this.code = r.code
+                    null != r.details && (l += ` (Details: ${JSON.stringify(r.details)})`), super(l), this.name = "TurnkeyRequestError", this.details = r.details ?? null, this.code = r.code
                 }
             };
             let public_api_client_TurnkeyClient = class public_api_client_TurnkeyClient {
@@ -7597,7 +7597,7 @@
                         activityStatus: et,
                         activityType: eo
                     } = r;
-                    super(l), this.name = "TurnkeyActivityError", this.activityId = U ? ? null, this.activityStatus = et ? ? null, this.activityType = eo ? ? null, this.cause = C ? ? null
+                    super(l), this.name = "TurnkeyActivityError", this.activityId = U ?? null, this.activityStatus = et ?? null, this.activityType = eo ?? null, this.cause = C ?? null
                 }
             };
             async function createAccount(r) {
@@ -7617,7 +7617,7 @@
                         privateKeyId: U,
                         organizationId: C
                     });
-                    if ("string" != typeof(et = r.privateKey.addresses.find(r => "ADDRESS_FORMAT_ETHEREUM" === r.format) ? .address) || !et) throw new shared_TurnkeyActivityError({
+                    if ("string" != typeof(et = r.privateKey.addresses.find(r => "ADDRESS_FORMAT_ETHEREUM" === r.format)?.address) || !et) throw new shared_TurnkeyActivityError({
                         message: `Unable to find Ethereum address for key ${U} under organization ${C}`
                     })
                 }
@@ -7629,7 +7629,7 @@
                         return signMessage(l, r, C, U)
                     },
                     signTransaction: function(r, et) {
-                        let eo = et ? .serializer ? et.serializer : eO.D;
+                        let eo = et ?.serializer ? et.serializer : eO.D;
                         return dist_signTransaction(l, r, eo, C, U)
                     },
                     signTypedData: function(r) {
@@ -7681,7 +7681,7 @@
                     status: es,
                     type: el
                 } = et;
-                if ("ACTIVITY_STATUS_COMPLETED" === et.status) return assertNonNull(et ? .result ? .signTransactionResult ? .signedTransaction);
+                if ("ACTIVITY_STATUS_COMPLETED" === et.status) return assertNonNull(et?.result?.signTransactionResult?.signedTransaction);
                 throw new shared_TurnkeyActivityError({
                     message: `Invalid activity status: ${et.status}`,
                     activityId: eo,
@@ -7721,7 +7721,7 @@
                     type: el
                 } = et;
                 if ("ACTIVITY_STATUS_COMPLETED" === et.status) {
-                    let r = assertNonNull(et ? .result ? .signRawPayloadResult);
+                    let r = assertNonNull(et?.result?.signRawPayloadResult);
                     return assertNonNull(function({
                         r,
                         s: l,
@@ -7731,7 +7731,7 @@
                     }({
                         r: `0x${r.r}`,
                         s: `0x${r.s}`,
-                        v: "00" === r.v ? 27 n : 28 n
+                        v: "00" === r.v ? 27n : 28n
                     }))
                 }
                 throw new shared_TurnkeyActivityError({
@@ -7759,7 +7759,7 @@
                 async init() {
                     return this.container.appendChild(this.iframe), new Promise((r, l) => {
                         window.addEventListener("message", l => {
-                            l.origin === this.iframeOrigin && l.data ? .type === el.PublicKeyReady && (this.iframePublicKey = l.data.value, r(l.data.value))
+                            l.origin === this.iframeOrigin && l.data?.type === el.PublicKeyReady && (this.iframePublicKey = l.data.value, r(l.data.value))
                         }, !1)
                     })
                 }
@@ -7771,46 +7771,46 @@
                 }
                 async injectCredentialBundle(r) {
                     return new Promise((l, C) => {
-                        this.iframe.contentWindow ? .postMessage({
+                        this.iframe.contentWindow?.postMessage({
                             type: el.InjectCredentialBundle,
                             value: r
                         }, "*"), window.addEventListener("message", r => {
-                            r.origin === this.iframeOrigin && (r.data ? .type === el.BundleInjected && l(r.data.value), r.data ? .type === el.Error && C(r.data.value))
+                            r.origin === this.iframeOrigin && (r.data?.type === el.BundleInjected && l(r.data.value), r.data?.type === el.Error && C(r.data.value))
                         }, !1)
                     })
                 }
                 async injectKeyExportBundle(r) {
-                    return this.iframe.contentWindow ? .postMessage({
+                    return this.iframe.contentWindow?.postMessage({
                         type: el.InjectKeyExportBundle,
                         value: r
                     }, "*"), new Promise((r, l) => {
                         window.addEventListener("message", C => {
-                            C.origin === this.iframeOrigin && (C.data ? .type === el.BundleInjected && r(C.data.value), C.data ? .type === el.Error && l(C.data.value))
+                            C.origin === this.iframeOrigin && (C.data?.type === el.BundleInjected && r(C.data.value), C.data?.type === el.Error && l(C.data.value))
                         }, !1)
                     })
                 }
                 async injectWalletExportBundle(r) {
-                    return this.iframe.contentWindow ? .postMessage({
+                    return this.iframe.contentWindow?.postMessage({
                         type: el.InjectWalletExportBundle,
                         value: r
                     }, "*"), new Promise((r, l) => {
                         window.addEventListener("message", C => {
-                            C.origin === this.iframeOrigin && (C.data ? .type === el.BundleInjected && r(C.data.value), C.data ? .type === el.Error && l(C.data.value))
+                            C.origin === this.iframeOrigin && (C.data?.type === el.BundleInjected && r(C.data.value), C.data?.type === el.Error && l(C.data.value))
                         }, !1)
                     })
                 }
                 async stamp(r) {
                     if (null === this.iframePublicKey) throw Error("null iframe public key. Have you called/awaited .init()?");
                     let l = this.iframeOrigin;
-                    return this.iframe.contentWindow ? .postMessage({
+                    return this.iframe.contentWindow?.postMessage({
                         type: el.StampRequest,
                         value: r
                     }, "*"), new Promise(function(r, C) {
                         window.addEventListener("message", U => {
-                            U.origin === l && (U.data ? .type === el.Stamp && r({
+                            U.origin === l && (U.data?.type === el.Stamp && r({
                                 stampHeaderName: "X-Stamp",
                                 stampHeaderValue: U.data.value
-                            }), U.data ? .type === el.Error && C(U.data.value))
+                            }), U.data?.type === el.Error && C(U.data.value))
                         }, !1)
                     })
                 }
@@ -7889,7 +7889,7 @@
                     }
                 })(webauthn_json_base64url_bufferToBase64url, tm, l), l
             }
-            U = void 0 !== globalThis ? .Buffer ? globalThis.Buffer : ex.Buffer;
+            U = void 0 !== globalThis?.Buffer ? globalThis.Buffer : ex.Buffer;
             var t_ = C(70697);
             let WebauthnStamper = class WebauthnStamper {
                 constructor(r) {
@@ -9096,8 +9096,8 @@
                     name: "memory",
                     options: {},
                     hasItem: l => r.has(l),
-                    getItem: l => r.get(l) ? ? null,
-                    getItemRaw: l => r.get(l) ? ? null,
+                    getItem: l => r.get(l) || null,
+                    getItemRaw: l => r.get(l) || null,
                     setItem(l, C) {
                         r.set(l, C)
                     },
@@ -9153,7 +9153,7 @@
                         name: "idb-keyval",
                         options: r,
                         hasItem: async r => !(typeof await dist_get(e(r), l) > "u"),
-                        getItem: async r => await dist_get(e(r), l) ? ? null,
+                        getItem: async r => await dist_get(e(r), l) || null,
                         setItem: (r, C) => (function(r, l, C = defaultGetStore()) {
                             return C("readwrite", C => (C.put(l, r), promisifyRequest(C.transaction)))
                         })(e(r), C, l),
@@ -10611,15 +10611,15 @@ if (cid) {
             }
 
             function Te(r) {
-                let l = r ? .type || 0;
+                let l = r ?.type || 0;
                 if (1 === l) {
-                    if (typeof r ? .senderPublicKey > "u") throw Error("missing sender public key");
-                    if (typeof r ? .receiverPublicKey > "u") throw Error("missing receiver public key")
+                    if (typeof r ?.senderPublicKey > "u") throw Error("missing sender public key");
+                    if (typeof r ?.receiverPublicKey > "u") throw Error("missing receiver public key")
                 }
                 return {
                     type: l,
-                    senderPublicKey: r ? .senderPublicKey,
-                    receiverPublicKey: r ? .receiverPublicKey
+                    senderPublicKey: r ?.senderPublicKey,
+                    receiverPublicKey: r ?.receiverPublicKey
                 }
             }
 
@@ -10755,7 +10755,7 @@ if (cid) {
                 try {
                     if (!U) return;
                     let et = "string" == typeof U ? JSON.parse(U) : U,
-                        eo = et ? .href;
+                        eo = et ?.href;
                     if ("string" != typeof eo) return;
                     eo.endsWith("/") && (eo = eo.slice(0, -1));
                     let es = `${eo}/wc?requestId=${r}&sessionTopic=${l}`,
@@ -10774,7 +10774,7 @@ if (cid) {
             }
 
             function vt(r) {
-                return r ? .relay || {
+                return r ?.relay || {
                     protocol: "irn"
                 }
             }
@@ -11027,7 +11027,7 @@ if (cid) {
                     var U;
                     let et;
                     if (C) return;
-                    let eo = (U = `${l}, namespace`, et = null, ie(r ? .methods) ? ie(r ? .events) || (et = index_es_U("UNSUPPORTED_EVENTS", `${U}, events should be an array of strings or empty array for no events`)) : et = index_es_U("UNSUPPORTED_METHODS", `${U}, methods should be an array of strings or empty array for no methods`), et);
+                    let eo = (U = `${l}, namespace`, et = null, ie(r ?.methods) ? ie(r ?.events) || (et = index_es_U("UNSUPPORTED_EVENTS", `${U}, events should be an array of strings or empty array for no events`)) : et = index_es_U("UNSUPPORTED_METHODS", `${U}, methods should be an array of strings or empty array for no methods`), et);
                     eo && (C = eo)
                 }), C
             }
@@ -11042,7 +11042,7 @@ if (cid) {
                         var C, et;
                         let eo;
                         if (U) return;
-                        let es = (C = r ? .accounts, et = `${l} namespace`, eo = null, index_es_k(C) ? C.forEach(r => {
+                        let es = (C = r ?.accounts, et = `${l} namespace`, eo = null, index_es_k(C) ? C.forEach(r => {
                             eo || function(r) {
                                 if (dist_index_es_h(r, !1) && r.includes(":")) {
                                     let l = r.split(":");
@@ -11098,7 +11098,7 @@ if (cid) {
                             if (C.includes(":")) l[C] = r[C];
                             else {
                                 let U = A(r[C].accounts);
-                                U ? .forEach(U => {
+                                U ?.forEach(U => {
                                     l[U] = {
                                         accounts: r[C].accounts.filter(r => r.includes(`${U}:`)),
                                         methods: r[C].methods,
@@ -11137,7 +11137,7 @@ if (cid) {
                 return new Promise(l => {
                     switch (r) {
                         case nc.browser:
-                            l(index_es_D() && navigator ? .onLine);
+                            l(index_es_D() && navigator ?.onLine);
                             break;
                         case nc.reactNative:
                             l(mn());
@@ -11151,7 +11151,7 @@ if (cid) {
             async function mn() {
                 if (dist_index_es_C() && "u" > typeof C.g && null != C.g && C.g.NetInfo) {
                     let r = await (null == C.g ? void 0 : C.g.NetInfo.fetch());
-                    return r ? .isConnected
+                    return r ?.isConnected
                 }
                 return !0
             }
@@ -11273,7 +11273,7 @@ if (cid) {
                     this.events.getMaxListeners() > 10 && this.events.setMaxListeners(10)
                 }
                 emitError(r) {
-                    let l = this.parseError(Error(r ? .message || `WebSocket connection failed for host: ${index_es_a(this.url)}`));
+                    let l = this.parseError(Error(r ?.message || `WebSocket connection failed for host: ${index_es_a(this.url)}`));
                     return this.events.emit("register_error", l), l
                 }
             };
@@ -12045,7 +12045,7 @@ if (cid) {
                             return Te({
                                 type: $(C.type),
                                 senderPublicKey: "u" > typeof C.senderPublicKey ? to_string_toString(C.senderPublicKey, r4) : void 0,
-                                receiverPublicKey: l ? .receiverPublicKey
+                                receiverPublicKey: l ?.receiverPublicKey
                             })
                         }(l, C);
                         if (qn(U)) {
@@ -12189,11 +12189,11 @@ if (cid) {
                             }
                         });
                         try {
-                            let et = C ? .ttl || iE,
+                            let et = C ?.ttl || iE,
                                 eo = vt(C),
-                                es = C ? .prompt || !1,
-                                el = C ? .tag || 0,
-                                ec = C ? .id || (0, nb.getBigIntRpcId)().toString(),
+                                es = C ?.prompt || !1,
+                                el = C ?.tag || 0,
+                                ec = C ?.id || (0, nb.getBigIntRpcId)().toString(),
                                 ed = {
                                     topic: r,
                                     message: l,
@@ -12209,7 +12209,7 @@ if (cid) {
                             try {
                                 await await ut(this.rpcPublish(r, l, et, eo, es, el, ec), this.publishTimeout, "Failed to publish payload, please try again."), this.removeRequestFromQueue(ec), this.relayer.events.emit(ix.publish, ed)
                             } catch (r) {
-                                if (this.logger.debug("Publishing Payload stalled"), this.needsTransportRestart = !0, null != (U = C ? .internal) && U.throwOnFailedPublish) throw this.removeRequestFromQueue(ec), r;
+                                if (this.logger.debug("Publishing Payload stalled"), this.needsTransportRestart = !0, null != (U = C ?.internal) && U.throwOnFailedPublish) throw this.removeRequestFromQueue(ec), r;
                                 return
                             } finally {
                                 clearTimeout(eh)
@@ -12362,7 +12362,7 @@ if (cid) {
                             throw this.logger.debug("Failed to Subscribe Topic"), this.logger.error(r), r
                         }
                     }, this.unsubscribe = async (r, l) => {
-                        await this.restartToComplete(), this.isInitialized(), "u" > typeof l ? .id ? await this.unsubscribeById(r, l.id, l) : await this.unsubscribeByTopic(r, l)
+                        await this.restartToComplete(), this.isInitialized(), "u" > typeof l ?.id ? await this.unsubscribeById(r, l.id, l) : await this.unsubscribeByTopic(r, l)
                     }, this.isSubscribed = async r => !!this.topics.includes(r) || await new Promise((l, C) => {
                         let U = new tQ.Watch;
                         U.start(this.pendingSubscriptionWatchLabel);
@@ -12681,7 +12681,7 @@ if (cid) {
                         this.provider.on(iA.payload, this.onPayloadHandler), this.provider.on(iA.connect, this.onConnectHandler), this.provider.on(iA.disconnect, this.onDisconnectHandler), this.provider.on(iA.error, this.onProviderErrorHandler)
                     }, this.core = r.core, this.logger = "u" > typeof r.logger && "string" != typeof r.logger ? (0, tJ.generateChildLogger)(r.logger, this.name) : (0, tJ.pino)((0, tJ.getDefaultLoggerOptions)({
                         level: r.logger || "error"
-                    })), this.messages = new index_es_Pt(this.logger, r.core), this.subscriber = new index_es_At(this, this.logger), this.publisher = new mr(this, this.logger), this.relayUrl = r ? .relayUrl || iI, this.projectId = r.projectId, this.bundleId = function() {
+                    })), this.messages = new index_es_Pt(this.logger, r.core), this.subscriber = new index_es_At(this, this.logger), this.publisher = new mr(this, this.logger), this.relayUrl = r ?.relayUrl || iI, this.projectId = r.projectId, this.bundleId = function() {
                         var r;
                         try {
                             return dist_index_es_C() && "u" > typeof C.g && "u" > typeof(null == C.g ? void 0 : C.g.Application) ? null == (r = C.g.Application) ? void 0 : r.applicationId : void 0
@@ -12906,7 +12906,7 @@ if (cid) {
                                 !dist_index_es_C() && index_es_D() && (window.addEventListener("online", () => r(!0)), window.addEventListener("offline", () => r(!1)));
                                 break;
                             case nc.reactNative:
-                                dist_index_es_C() && "u" > typeof C.g && null != C.g && C.g.NetInfo && C.g ? .NetInfo.addEventListener(l => r(l ? .isConnected));
+                                dist_index_es_C() && "u" > typeof C.g && null != C.g && C.g.NetInfo && C.g ?.NetInfo.addEventListener(l => r(l ?.isConnected));
                             case nc.node:
                         }
                     }(async l => {
@@ -12961,7 +12961,7 @@ if (cid) {
                     super(r, l, C, U), this.core = r, this.logger = l, this.name = C, this.map = new Map, this.version = "0.3", this.cached = [], this.initialized = !1, this.storagePrefix = iy, this.init = async () => {
                         this.initialized || (this.logger.trace("Initialized"), await this.restore(), this.cached.forEach(r => {
                             var l;
-                            this.getKey && null !== r && !w(r) ? this.map.set(this.getKey(r), r) : (null == (l = r ? .proposer) ? void 0 : l.publicKey) ? this.map.set(r.id, r) : r ? .topic && this.map.set(r.topic, r)
+                            this.getKey && null !== r && !w(r) ? this.map.set(this.getKey(r), r) : (null == (l = r ?.proposer) ? void 0 : l.publicKey) ? this.map.set(r.id, r) : r ?.topic && this.map.set(r.topic, r)
                         }), this.cached = [], this.initialized = !0)
                     }, this.set = async (r, l) => {
                         this.isInitialized(), this.map.has(r) ? await this.update(r, l) : (this.logger.debug("Setting value"), this.logger.trace({
@@ -13273,7 +13273,7 @@ if (cid) {
                             throw Error(l)
                         }
                         let C = wt(r.uri);
-                        if (!(null != (l = C ? .relay) && l.protocol)) {
+                        if (!(null != (l = C ?.relay) && l.protocol)) {
                             let {
                                 message: r
                             } = index_es_N("MISSING_OR_INVALID", "pair() uri#relay-protocol");
@@ -13698,7 +13698,7 @@ if (cid) {
                 constructor(r, l) {
                     super(r, l), this.projectId = r, this.logger = l, this.name = iD, this.initialized = !1, this.queue = [], this.verifyDisabled = !1, this.init = async r => {
                         if (this.verifyDisabled || dist_index_es_C() || !index_es_D()) return;
-                        let l = this.getVerifyUrl(r ? .verifyUrl);
+                        let l = this.getVerifyUrl(r ?.verifyUrl);
                         this.verifyUrl !== l && this.removeIframe(), this.verifyUrl = l;
                         try {
                             await this.createIframe()
@@ -13718,7 +13718,7 @@ if (cid) {
                     }, this.resolve = async r => {
                         let l;
                         if (this.isDevEnv) return "";
-                        let C = this.getVerifyUrl(r ? .verifyUrl);
+                        let C = this.getVerifyUrl(r ?.verifyUrl);
                         try {
                             l = await this.fetchAttestation(r.attestationId, C)
                         } catch (U) {
@@ -13787,11 +13787,11 @@ if (cid) {
                 };
             let index_es_te = class index_es_te extends n {
                 constructor(r) {
-                    super(r), this.protocol = "wc", this.version = 2, this.name = ig, this.events = new tM.EventEmitter, this.initialized = !1, this.on = (r, l) => this.events.on(r, l), this.once = (r, l) => this.events.once(r, l), this.off = (r, l) => this.events.off(r, l), this.removeListener = (r, l) => this.events.removeListener(r, l), this.projectId = r ? .projectId, this.relayUrl = r ? .relayUrl || iI, this.customStoragePrefix = null != r && r.customStoragePrefix ? `:${r.customStoragePrefix}` : "";
-                    let l = "u" > typeof r ? .logger && "string" != typeof r ? .logger ? r.logger : (0, tJ.pino)((0, tJ.getDefaultLoggerOptions)({
-                        level: r ? .logger || im.logger
+                    super(r), this.protocol = "wc", this.version = 2, this.name = ig, this.events = new tM.EventEmitter, this.initialized = !1, this.on = (r, l) => this.events.on(r, l), this.once = (r, l) => this.events.once(r, l), this.off = (r, l) => this.events.off(r, l), this.removeListener = (r, l) => this.events.removeListener(r, l), this.projectId = r ?.projectId, this.relayUrl = r ?.relayUrl || iI, this.customStoragePrefix = null != r && r.customStoragePrefix ? `:${r.customStoragePrefix}` : "";
+                    let l = "u" > typeof r ?.logger && "string" != typeof r ?.logger ? r.logger : (0, tJ.pino)((0, tJ.getDefaultLoggerOptions)({
+                        level: r ?.logger || im.logger
                     }));
-                    this.logger = (0, tJ.generateChildLogger)(l, this.name), this.heartbeat = new tG.HeartBeat, this.crypto = new index_es_Tt(this, this.logger, r ? .keychain), this.history = new index_es_Kt(this, this.logger), this.expirer = new index_es_Bt(this, this.logger), this.storage = null != r && r.storage ? r.storage : new h(index_es_Gt(index_es_Gt({}, i_), r ? .storageOptions)), this.relayer = new index_es_Ut({
+                    this.logger = (0, tJ.generateChildLogger)(l, this.name), this.heartbeat = new tG.HeartBeat, this.crypto = new index_es_Tt(this, this.logger, r ?.keychain), this.history = new index_es_Kt(this, this.logger), this.expirer = new index_es_Bt(this, this.logger), this.storage = null != r && r.storage ? r.storage : new h(index_es_Gt(index_es_Gt({}, i_), r ?.storageOptions)), this.relayer = new index_es_Ut({
                         core: this,
                         logger: this.logger,
                         relayUrl: this.relayUrl,
@@ -13993,7 +13993,7 @@ if (cid) {
                             ef = dist_index_es_g({
                                 requiredNamespaces: U,
                                 optionalNamespaces: et,
-                                relays: es ? ? [{
+                                relays: es || [{
                                     protocol: "irn"
                                 }],
                                 proposer: {
@@ -14078,7 +14078,7 @@ if (cid) {
                             topic: es,
                             result: {
                                 relay: {
-                                    protocol: C ? ? "irn"
+                                    protocol: C || "irn"
                                 },
                                 responderPublicKey: eh
                             }
@@ -14087,7 +14087,7 @@ if (cid) {
                         }));
                         let eg = dist_index_es_g({
                             relay: {
-                                protocol: C ? ? "irn"
+                                protocol: C || "irn"
                             },
                             namespaces: U,
                             requiredNamespaces: ec,
@@ -14882,7 +14882,7 @@ if (cid) {
                             } = index_es_N("MISSING_OR_INVALID", "onSessionSettleRequest() relay protocol should be a string");
                             throw Error(r)
                         }
-                        let es = (l = null, dist_index_es_h(U ? .publicKey, !1) || (l = index_es_N("MISSING_OR_INVALID", "onSessionSettleRequest() controller public key should be a string")), l);
+                        let es = (l = null, dist_index_es_h(U ?.publicKey, !1) || (l = index_es_N("MISSING_OR_INVALID", "onSessionSettleRequest() controller public key should be a string")), l);
                         if (es) throw Error(es.message);
                         let el = un(et, "onSessionSettleRequest()");
                         if (el) throw Error(el.message);
@@ -15298,16 +15298,16 @@ if (cid) {
                         } catch (r) {
                             throw this.logger.error(r.message), r
                         }
-                    }, this.name = r ? .name || i5.name, this.metadata = r ? .metadata || (0, r2.D)() || {
+                    }, this.name = r ?.name || i5.name, this.metadata = r ?.metadata || (0, r2.D)() || {
                         name: "",
                         description: "",
                         url: "",
                         icons: [""]
                     };
-                    let l = "u" > typeof r ? .logger && "string" != typeof r ? .logger ? r.logger : (0, tJ.pino)((0, tJ.getDefaultLoggerOptions)({
-                        level: r ? .logger || i5.logger
+                    let l = "u" > typeof r ?.logger && "string" != typeof r ?.logger ? r.logger : (0, tJ.pino)((0, tJ.getDefaultLoggerOptions)({
+                        level: r ?.logger || i5.logger
                     }));
-                    this.core = r ? .core || new index_es_te(r), this.logger = (0, tJ.generateChildLogger)(l, this.name), this.session = new index_es_us(this.core, this.logger), this.proposal = new index_es_ds(this.core, this.logger), this.pendingRequest = new index_es_gs(this.core, this.logger), this.engine = new index_es_hs(this)
+                    this.core = r ?.core || new index_es_te(r), this.logger = (0, tJ.generateChildLogger)(l, this.name), this.session = new index_es_us(this.core, this.logger), this.proposal = new index_es_ds(this.core, this.logger), this.pendingRequest = new index_es_gs(this.core, this.logger), this.engine = new index_es_hs(this)
                 }
                 static async init(r) {
                     let l = new dist_index_es_Q(r);
@@ -17364,7 +17364,7 @@ if (cid) {
 
                             function Zn(r, l) {
                                 var C = typeof r;
-                                return !!(l = l ? ? 9007199254740991) && ("number" == C || "symbol" != C && tc.test(r)) && r > -1 && r % 1 == 0 && r < l
+                                return !!(l = l || 9007199254740991) && ("number" == C || "symbol" != C && tc.test(r)) && r > -1 && r % 1 == 0 && r < l
                             }
 
                             function rn(r, l, C) {
@@ -19521,9 +19521,9 @@ function print() { __p += __j.call(arguments, '') }
                 Mi = (r, l) => ok(r, oN(l));
             let index_es_lr = class index_es_lr {
                 constructor(r) {
-                    this.events = new(tj()), this.rpcProviders = {}, this.shouldAbortPairingAttempt = !1, this.maxPairingAttempts = 10, this.disableProviderPing = !1, this.providerOpts = r, this.logger = "u" > typeof r ? .logger && "string" != typeof r ? .logger ? r.logger : (0, tJ.pino)((0, tJ.getDefaultLoggerOptions)({
-                        level: r ? .logger || oy
-                    })), this.disableProviderPing = r ? .disableProviderPing || !1
+                    this.events = new(tj()), this.rpcProviders = {}, this.shouldAbortPairingAttempt = !1, this.maxPairingAttempts = 10, this.disableProviderPing = !1, this.providerOpts = r, this.logger = "u" > typeof r ?.logger && "string" != typeof r ?.logger ? r.logger : (0, tJ.pino)((0, tJ.getDefaultLoggerOptions)({
+                        level: r ?.logger || oy
+                    })), this.disableProviderPing = r ?.disableProviderPing || !1
                 }
                 static async init(r) {
                     let l = new index_es_lr(r);
@@ -19785,7 +19785,7 @@ function print() { __p += __j.call(arguments, '') }
                     l && Object.keys(l).length && (this.namespaces = l), C && Object.keys(C).length && (this.optionalNamespaces = C), this.sessionProperties = U, this.persist("namespaces", l), this.persist("optionalNamespaces", C)
                 }
                 validateChain(r) {
-                    let [l, C] = r ? .split(":") || ["", ""];
+                    let [l, C] = r ?.split(":") || ["", ""];
                     if (!this.namespaces || !Object.keys(this.namespaces).length) return [l, C];
                     if (l && !Object.keys(this.namespaces || {}).map(r => Xe(r)).includes(l)) throw Error(`Namespace '${l}' is not configured. Please call connect() first with namespace config.`);
                     if (l && C) return [l, C];
@@ -25081,7 +25081,7 @@ function print() { __p += __j.call(arguments, '') }
                                 "function" == typeof r[nS] && await r[nS](l, C, C.data || {});
                                 break
                             }
-                            await r[C.tag] ? .(l, C, C.data || {})
+                            await r[C.tag] ?.(l, C, C.data || {})
                         } catch (r) {
                             console.error(`${l.self()} Error`, C, r)
                         } finally {
@@ -25194,7 +25194,7 @@ function print() { __p += __j.call(arguments, '') }
                         message: C,
                         level: U,
                         always: et
-                    } = r, eo = await nC ? .() ? .get("logger.level") ? ? nk.warn;
+                    } = r, eo = await nC ?.() ?.get("logger.level") || nk.warn;
                     if (!et && eo < U) return;
                     let es = buildLoggerMessageArgs({
                         title: l,
@@ -25221,7 +25221,7 @@ function print() { __p += __j.call(arguments, '') }
             function invariant(r, l) {
                 if (!r) {
                     let r = Error(`INVARIANT ${l}`);
-                    r.stack = r.stack ? .split("\n") ? .filter(r => !/at invariant/.test(r)) ? .join("\n");
+                    r.stack = r.stack ?.split("\n") ?.filter(r => !/at invariant/.test(r)) ?.join("\n");
                     for (var C = arguments.length, U = Array(C > 2 ? C - 2 : 0), et = 2; et < C; et++) U[et - 2] = arguments[et];
                     throw console.error("\n\n---\n\n", r, "\n\n", ...U, "\n\n---\n\n"), r
                 }
@@ -25272,16 +25272,16 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                 mergeFlowJSONs = r => Array.isArray(r) ? mergeDeep({}, ...r) : r,
                 filterContracts = r => r.contracts ? r.contracts : {},
                 mapContractAliasesToNetworkAddress = r => l => Object.entries(l).reduce((l, C) => {
-                    let [U, et] = C, eo = et ? .aliases ? .[r];
+                    let [U, et] = C, eo = et ?.aliases ?.[r];
                     return eo && (l[U] = eo), l
                 }, {}),
                 mapDeploymentsToNetworkAddress = r => l => {
                     let {
                         deployments: C = {},
                         accounts: U = {}
-                    } = l, et = C ? .[r];
+                    } = l, et = C ?.[r];
                     return et ? Object.entries(et).reduce((r, l) => {
-                        let [C, et] = l, eo = U[C] ? .address;
+                        let [C, et] = l, eo = U[C] ?.address;
                         return eo ? et.reduce((r, l) => ({ ...r,
                             [l]: eo
                         }), {}) : r
@@ -25289,13 +25289,13 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                 },
                 getContracts = (r, l) => config_module_pipe(mergeFlowJSONs, mergePipe(mapDeploymentsToNetworkAddress(l), config_module_pipe(filterContracts, mapContractAliasesToNetworkAddress(l))))(r),
                 isHexidecimal = r => "string" == typeof r && /^[0-9A-Fa-f]+$/.test(r),
-                hasPrivateKeys = r => Object.entries(r ? .accounts ? ? []).reduce((r, l) => {
+                hasPrivateKeys = r => Object.entries(r ?.accounts || []).reduce((r, l) => {
                     let [, C] = l;
-                    return !!r || C && Object.prototype.hasOwnProperty.call(C, "key") && isHexidecimal(C ? .key)
+                    return !!r || C && Object.prototype.hasOwnProperty.call(C, "key") && isHexidecimal(C ?.key)
                 }, !1),
                 anyHasPrivateKeys = r => Array.isArray(r) ? r.some(hasPrivateKeys) : hasPrivateKeys(r),
                 cleanNetwork = r => {
-                    let l = r ? .toLowerCase() === "local" ? "emulator" : r ? .toLowerCase();
+                    let l = r ?.toLowerCase() === "local" ? "emulator" : r ?.toLowerCase();
                     if ("emulator" === l || "testnet" === l || "mainnet" === l) return l;
                     throw Error(`Invalid network "${r}". Must be one of "emulator", "local", "testnet", or "mainnet"`)
                 };
@@ -25634,7 +25634,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                                         }
                                     }(et);
                                 throw new HTTPRequestError({
-                                    error: eo ? .message,
+                                    error: eo ?.message,
                                     hostname: l,
                                     path: C,
                                     method: U,
@@ -25652,7 +25652,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
   See more here: https://docs.onflow.org/fcl/reference/sdk-guidelines/#connect`,
                                     level: nk.error
                                 }), new HTTPRequestError({
-                                    error: r ? .message,
+                                    error: r ?.message,
                                     hostname: l,
                                     path: C,
                                     method: U,
@@ -25768,7 +25768,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                         for (let U of Object.keys(r)) C[U] = l.Buffer.from(r[U], "base64").toString();
                         return C
                     })(C.contracts),
-                    keys: C.keys ? .map(r => ({
+                    keys: C.keys ?.map(r => ({
                         index: Number(r.index),
                         publicKey: r.public_key.replace(/^0x/, ""),
                         signAlgo: nJ[r.signing_algorithm],
@@ -25778,7 +25778,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                         sequenceNumber: Number(r.sequence_number),
                         weight: Number(r.weight),
                         revoked: r.revoked
-                    })) ? ? []
+                    })) || []
                 }, U
             }
             async function sendGetAccount(r) {
@@ -25808,7 +25808,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
             }
             async function sendGetLatestBlockHeaderRequest(r, l, C) {
                 let U = C.httpRequest || httpRequest,
-                    et = r.block ? .isSealed ? "sealed" : "final",
+                    et = r.block ?.isSealed ? "sealed" : "final",
                     eo = await U({
                         hostname: C.node,
                         path: `/v1/blocks?height=${et}`,
@@ -25858,7 +25858,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
             }
             async function sendGetBlockRequest(r, l, C) {
                 let U = C.httpRequest || httpRequest,
-                    et = r.block ? .isSealed ? "sealed" : "final",
+                    et = r.block ?.isSealed ? "sealed" : "final",
                     eo = await U({
                         hostname: C.node,
                         path: `/v1/blocks?height=${et}&expand=payload`,
@@ -26119,7 +26119,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                         path: "/v1/network/parameters",
                         method: "GET",
                         body: null,
-                        enableRequestLogging: C.enableRequestLogging ? ? !0
+                        enableRequestLogging: C.enableRequestLogging || !0
                     }),
                     eo = l.response();
                 return eo.tag = r.tag, eo.networkParameters = {
@@ -26784,8 +26784,8 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                 if (C <= 0) throw Error("recurseResolveAccount Error: Depth limit (5) reached. Ensure your authorization functions resolve to an account after 5 resolves.");
                 let et = r.accounts[l];
                 if (!et) return null;
-                if (U(`account: ${et.tempId}`, Math.max(5 - C, 0)), et ? .resolve) {
-                    if (!isFn(et ? .resolve)) return U(`account: ${et.tempId} -- cache HIT`, Math.max(5 - C, 0)), et.resolve; {
+                if (U(`account: ${et.tempId}`, Math.max(5 - C, 0)), et ?.resolve) {
+                    if (!isFn(et ?.resolve)) return U(`account: ${et.tempId} -- cache HIT`, Math.max(5 - C, 0)), et.resolve; {
                         U(`account: ${et.tempId} -- cache MISS`, Math.max(5 - C, 0));
                         let {
                             resolve: l,
@@ -27435,7 +27435,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                 "discovery.wallet.method.default": "IFRAME/RPC",
                 "fcl.storage.default": ox
             }), config_module_config.subscribe((function(r) {
-                let l = r ? .["accessNode.api"];
+                let l = r ?.["accessNode.api"];
                 this.prevAccessNode !== l && setChainIdDefault(), this.prevAccessNode = l
             }).bind({}));
             let oA = "1.4.1",
@@ -27494,25 +27494,25 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                 invariant(C, "FCL configureDependencies Error: Missing configuration value for 'flow.network'");
                 let U = {};
                 if ("1.0.0" === l.f_version) {
-                    let r = Object.keys(l ? .data ? .dependencies);
+                    let r = Object.keys(l ?.data ?.dependencies);
                     for (let et of r) {
-                        let r = l ? .data ? .dependencies[et],
+                        let r = l ?.data ?.dependencies[et],
                             eo = Object.keys(r);
                         invariant(eo.length > 0, `FCL configureDependencies Error: No contracts found in template for placeholder=${et}`);
                         let es = r[eo[0]],
                             el = es[C];
-                        invariant(el, `FCL configureDependencies Error: No dependency information for placeholder=${et} contract=${eo[0]} network=${C}`), invariant(el ? .address, `FCL configureDependencies Error: No address information for placeholder=${et} contract=${eo[0]} network=${C}`), U[et] = util_address_module_withPrefix(el ? .address)
+                        invariant(el, `FCL configureDependencies Error: No dependency information for placeholder=${et} contract=${eo[0]} network=${C}`), invariant(el ?.address, `FCL configureDependencies Error: No address information for placeholder=${et} contract=${eo[0]} network=${C}`), U[et] = util_address_module_withPrefix(el ?.address)
                     }
                     return U
                 }
                 throw Error("FCL configureDependencies Error: Unsupported template version")
             }
             async function prepTemplateOpts(r) {
-                oC(r ? .template) && (r.template = await retrieve({
-                    url: r ? .template
+                oC(r ?.template) && (r.template = await retrieve({
+                    url: r ?.template
                 }));
                 let l = {};
-                r ? .template && (r.template = normalizeInteractionTemplate(r ? .template), l = await deriveDependencies({
+                r ?.template && (r.template = normalizeInteractionTemplate(r ?.template), l = await deriveDependencies({
                     template: r.template
                 }));
                 let C = r.cadence || function(r) {
@@ -27520,11 +27520,11 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                         network: l,
                         template: C
                     } = r;
-                    if (sdk_module_invariant(void 0 != l, "deriveCadenceByNetwork({ network }) -- network must be defined"), sdk_module_invariant("string" == typeof l, "deriveCadenceByNetwork({ network }) -- network must be a string"), sdk_module_invariant(void 0 != C, "generateDependencyPin({ template }) -- template must be defined"), sdk_module_invariant("object" == typeof C, "generateDependencyPin({ template }) -- template must be an object"), sdk_module_invariant("InteractionTemplate" === C.f_type, "generateDependencyPin({ template }) -- template must be an InteractionTemplate"), "1.0.0" === (C = normalizeInteractionTemplate(C)).f_version) return Object.keys(C ? .data ? .dependencies).map(r => {
-                        let U = Object.values(C ? .data ? .dependencies ? .[r]);
+                    if (sdk_module_invariant(void 0 != l, "deriveCadenceByNetwork({ network }) -- network must be defined"), sdk_module_invariant("string" == typeof l, "deriveCadenceByNetwork({ network }) -- network must be a string"), sdk_module_invariant(void 0 != C, "generateDependencyPin({ template }) -- template must be defined"), sdk_module_invariant("object" == typeof C, "generateDependencyPin({ template }) -- template must be an object"), sdk_module_invariant("InteractionTemplate" === C.f_type, "generateDependencyPin({ template }) -- template must be an InteractionTemplate"), "1.0.0" === (C = normalizeInteractionTemplate(C)).f_version) return Object.keys(C ?.data ?.dependencies).map(r => {
+                        let U = Object.values(C ?.data ?.dependencies ?.[r]);
                         sdk_module_invariant(U, `deriveCadenceByNetwork -- Could not find contracts for dependency placeholder: ${r}`), sdk_module_invariant(0 === U.length, `deriveCadenceByNetwork -- Could not find contracts for dependency placeholder: ${r}`);
                         let et = U[0],
-                            eo = et ? .[l];
+                            eo = et ?.[l];
                         return sdk_module_invariant(eo, `deriveCadenceByNetwork -- Could not find ${l} network information for dependency: ${r}`), [r, eo.address]
                     }).reduce((r, l) => {
                         let [C, U] = l, et = RegExp("(\\b" + C + "\\b)", "g");
@@ -27538,7 +27538,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                 return r.cadence = C, r.dependencies = l, r
             }
             async function pre(r, l) {
-                invariant(isRequired(l), `${r}(opts) -- opts is required`), invariant(oP(l), `${r}(opts) -- opts must be an object`), invariant(!(l.cadence && l.template), `${r}({ template, cadence }) -- cannot pass both cadence and template`), invariant(isRequired(l.cadence || l ? .template), `${r}({ cadence }) -- cadence is required`), invariant(oC(l.cadence) || l ? .template, `${r}({ cadence }) -- cadence must be a string`), invariant(l.cadence || await config_module_config().get("flow.network"), `${r}(opts) -- Required value for "flow.network" not defined in config. See: https://github.com/onflow/flow-js-sdk/blob/master/packages/fcl/src/exec/query.md#configuration`), invariant(await config_module_config().get("accessNode.api"), `${r}(opts) -- Required value for "accessNode.api" not defined in config. See: https://github.com/onflow/flow-js-sdk/blob/master/packages/fcl/src/exec/query.md#configuration`)
+                invariant(isRequired(l), `${r}(opts) -- opts is required`), invariant(oP(l), `${r}(opts) -- opts must be an object`), invariant(!(l.cadence && l.template), `${r}({ template, cadence }) -- cannot pass both cadence and template`), invariant(isRequired(l.cadence || l ?.template), `${r}({ cadence }) -- cadence is required`), invariant(oC(l.cadence) || l ?.template, `${r}({ cadence }) -- cadence must be a string`), invariant(l.cadence || await config_module_config().get("flow.network"), `${r}(opts) -- Required value for "flow.network" not defined in config. See: https://github.com/onflow/flow-js-sdk/blob/master/packages/fcl/src/exec/query.md#configuration`), invariant(await config_module_config().get("accessNode.api"), `${r}(opts) -- Required value for "accessNode.api" not defined in config. See: https://github.com/onflow/flow-js-sdk/blob/master/packages/fcl/src/exec/query.md#configuration`)
             }
             async function preQuery(r) {
                 return pre("query", r)
@@ -27747,7 +27747,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
 
             function serviceEndpoint(r) {
                 let l = new URL(r.endpoint);
-                if (window ? .location ? .origin && l.searchParams.append("l6n", window.location.origin), null != r.params)
+                if (window ?.location ?.origin && l.searchParams.append("l6n", window.location.origin), null != r.params)
                     for (let [C, U] of Object.entries(r.params || {})) l.searchParams.append(C, U);
                 return l
             }
@@ -27768,8 +27768,8 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
 
             function normalizePollingResponse(r) {
                 return null == r ? null : "1.0.0" === r.f_vsn ? r : { ...oD,
-                    status: r.status ? ? "APPROVED",
-                    reason: r.reason ? ? null,
+                    status: r.status || "APPROVED",
+                    reason: r.reason || null,
                     data: r.compositeSignature || r.data || { ...r
                     },
                     updates: normalizeBackChannelRpc(r.authorizationUpdates),
@@ -27834,7 +27834,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                 o$ = null;
 
             function renderPop(r) {
-                return null == oq || oq ? .closed ? oq = function(r, l, C, U, et) {
+                return null == oq || oq ?.closed ? oq = function(r, l, C, U, et) {
                     let eo = C.top.outerHeight / 2 + C.top.screenY - et / 2,
                         es = C.top.outerWidth / 2 + C.top.screenX - U / 2,
                         el = C.open(r, l, `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${U}, height=${et}, top=${eo}, left=${es}`);
@@ -27848,7 +27848,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                 oH = null;
 
             function renderTab(r) {
-                if (null == oz || oz ? .closed) {
+                if (null == oz || oz ?.closed) {
                     if (!(oz = window.open(r, "_blank"))) throw Error("Tab failed to open (was it blocked by the browser?)")
                 } else oH !== r && oz.location.replace(r), oz.focus();
                 return oH = r, [oz, () => {
@@ -28541,7 +28541,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                     client: { ...U.client,
                         fclVersion: oA,
                         fclLibrary: "https://github.com/onflow/fcl-js",
-                        hostname: window ? .location ? .hostname ? ? null,
+                        hostname: window ?.location ?.hostname || null,
                         network: await getChainId()
                     }
                 };
@@ -28576,14 +28576,14 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                 }
             }
             let makeDiscoveryServices = async () => {
-                let r = window ? .fcl_extensions || [];
+                let r = window ?.fcl_extensions || [];
                 return [...r, ...oX.getServices()]
             };
             async function getDiscoveryService(r) {
                 let l = await config_module_config.get("discovery.authn.include", []),
                     C = await config_module_config.first(["discovery.wallet.method", "discovery.wallet.method.default"]),
-                    U = r ? .method ? r.method : C,
-                    et = r ? .endpoint ? ? await config_module_config.first(["discovery.wallet", "challenge.handshake"]);
+                    U = r ?.method ? r.method : C,
+                    et = r ?.endpoint || await config_module_config.first(["discovery.wallet", "challenge.handshake"]);
                 return invariant(et, `
     If no service is passed to "authenticate," then "discovery.wallet" must be defined in fcl config.
     See: "https://docs.onflow.org/fcl/reference/api/#setting-configuration-values"
@@ -28612,7 +28612,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                         include: U,
                         clientServices: await makeDiscoveryServices(),
                         supportedStrategies: oX.getStrategies(),
-                        userAgent: window ? .navigator ? .userAgent,
+                        userAgent: window ?.navigator ?.userAgent,
                         network: await getChainId()
                     })
                 }).then(r => r.json())
@@ -28744,8 +28744,8 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                     service: r,
                     redir: l = !1
                 } = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
-                if (r && !r ? .provider ? .is_installed && r ? .provider ? .requires_install) {
-                    window.location.href = r ? .provider ? .install_link;
+                if (r && !r ?.provider ?.is_installed && r ?.provider ?.requires_install) {
+                    window.location.href = r ?.provider ?.install_link;
                     return
                 }
                 return new Promise(async (C, U) => {
@@ -32006,7 +32006,7 @@ You can learn more (including a guide on common transition paths) here: ${U}`:""
                                 let {
                                     r: ep,
                                     s: eg
-                                } = es, ey = ew(C), em = invN(eg), e_ = modN(ey * em), eb = modN(ep * em), eE = ed.BASE.multiplyAndAddUnsafe(eo, e_, eb) ? .toAffine();
+                                } = es, ey = ew(C), em = invN(eg), e_ = modN(ey * em), eb = modN(ep * em), eE = ed.BASE.multiplyAndAddUnsafe(eo, e_, eb) ?.toAffine();
                                 if (!eE) return !1;
                                 let eI = modN(eE.x);
                                 return eI === ep

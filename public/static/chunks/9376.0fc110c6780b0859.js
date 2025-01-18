@@ -10163,7 +10163,7 @@ ${jsonify(e)}`, {
                     } = e, {
                         path: l
                     } = e, c = 0 === l.length ? i : `At path: ${l.join(".")} -- ${i}`;
-                    super(o ? ? c), null != o && (this.cause = c), Object.assign(this, a), this.name = this.constructor.name, this.failures = () => n ? ? (n = [e, ...t()])
+                    super(o ?? c), null != o && (this.cause = c), Object.assign(this, a), this.name = this.constructor.name, this.failures = () => n ?? (n = [e, ...t()])
                 }
             };
 
@@ -10378,11 +10378,11 @@ ${jsonify(e)}`, {
                     type: "lazy",
                     schema: null,
                     * entries(n, i) {
-                        t ? ? (t = e()), yield* t.entries(n, i)
+                        t ?? (t = e()), yield* t.entries(n, i)
                     },
-                    validator: (n, i) => (t ? ? (t = e()), t.validator(n, i)),
-                    coercer: (n, i) => (t ? ? (t = e()), t.coercer(n, i)),
-                    refiner: (n, i) => (t ? ? (t = e()), t.refiner(n, i))
+                    validator: (n, i) => (t ?? (t = e()), t.validator(n, i)),
+                    coercer: (n, i) => (t ?? (t = e()), t.coercer(n, i)),
+                    refiner: (n, i) => (t ?? (t = e()), t.refiner(n, i))
                 })
             }
 

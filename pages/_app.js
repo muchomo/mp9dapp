@@ -1,16 +1,18 @@
 import toast, { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
 import { MusicNFTProvider } from "../context/context";
-
+import { Analytics } from "@vercel/analytics/react"
 export default function App({ Component, pageProps }) {
   return (
     <>
+    
       <MusicNFTProvider>
         <Component {...pageProps} />
         <Toaster />
+        <Analytics/>
       </MusicNFTProvider>
 
-      <script src="/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script>
+      {/* <script src="/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script> */}
       <script src="/static/chunks/5730.7cc20b7a30fd15ed.js"></script>
       <script src="/static/chunks/bbcbaea7.c2f7260405eb03c7.js"></script>
       <script src="/static/chunks/2e349e4f.893a08034c36a5c2.js"></script>

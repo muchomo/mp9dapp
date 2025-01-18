@@ -7308,7 +7308,7 @@
                     }));
                     await Promise.all(k), await $13b5a8bc45044506$export$21ece85d7636deb(e, n, r, I)
                 } catch (s) {
-                    let n = 0 n;
+                    let n = 0 ;
                     try {
                         n = await O.getBlockNumber()
                     } catch (e) {

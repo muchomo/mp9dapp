@@ -13311,7 +13311,7 @@
                         "xn--mgbgu82a": t,
                         ڀارت: t,
                         "xn--rvc1e0am3e": t,
-                        ഭാ രതം: t,
+                        ഭാരതം: t,
                         "xn--h2brj9c": t,
                         भारत: t,
                         "xn--mgbbh1a": t,
@@ -13319,7 +13319,7 @@
                         "xn--mgbbh1a71e": t,
                         بھارت: t,
                         "xn--fpcrj9c3d": t,
-                        భా రత్: t,
+                        భారత్: t,
                         "xn--gecrj9c": t,
                         ભારત: t,
                         "xn--s9brj9c": t,
@@ -13415,10 +13415,10 @@
                         ไทย: [1, {
                             ศึกษา: t,
                             ธุรกิจ: t,
-                            รั ฐบาล: t,
+                            รัฐบาล: t,
                             ทหาร: t,
-                            เน็ ต: t,
-                            องค์ กร: t
+                            เน็ต: t,
+                            องค์กร: t
                         }],
                         "xn--pgbs0dh": t,
                         تونس: t,
@@ -48215,8 +48215,7 @@ Expected: awaiting_signature`)
                 c = /^(?:(?:(?:node|node:[\w/]+|(?:(?:node:)?internal\/[\w/]*|.*node_modules\/(?:babel-polyfill|pirates)\/.*)?\w+)(?:\.js)?:\d+:\d+)|native)/,
                 d = void 0 === s.homedir ? "" : s.homedir().replace(/\\/g, "/"),
                 cleanInternalStack = t => t.replace(/\s+at .*aggregate-error\/index.js:\d+:\d+\)?/g, "");
-            let AggregateError = class AggregateError extends Error {#
-                e;
+            let AggregateError = class AggregateError extends Error {#e;
                 name = "AggregateError";
                 constructor(t) {
                     if (!Array.isArray(t)) throw TypeError(`Expected input to be an Array, got ${typeof t}`);
@@ -50504,9 +50503,9 @@ Expected: awaiting_signature`)
                 et = a(33495),
                 en = a(23281);
 
-            function isEmpty(t) {
-                return 0 === t || 0 n === t || null == t || "0" === t || "" === t || "string" == typeof t && ("0x" === (0, en.f)(t).toLowerCase() || "0x00" === (0, en.f)(t).toLowerCase())
-            }
+                function isEmpty(t) {
+                    return 0 === t || 0n === t || null == t || "0" === t || "" === t || "string" == typeof t && ("0x" === (0, en.f)(t).toLowerCase() || "0x00" === (0, en.f)(t).toLowerCase())
+                }
 
             function isPresent(t) {
                 return !isEmpty(t)
@@ -50527,7 +50526,7 @@ Expected: awaiting_signature`)
                 block: (0, Q.G)({
                     exclude: ["difficulty", "gasLimit", "mixHash", "nonce", "uncles"],
                     format(t) {
-                        let r = t.transactions ? .map(t => "string" == typeof t ? t : { ...ee.Tr(t),
+                        let r = t.transactions?.map(t => "string" == typeof t ? t : { ...ee.Tr(t),
                             feeCurrency: t.feeCurrency,
                             ..."0x7b" !== t.type ? {
                                 gatewayFee: t.gatewayFee ? J.y_(t.gatewayFee) : null,
@@ -50605,8 +50604,8 @@ Expected: awaiting_signature`)
                             accessList: p,
                             feeCurrency: h,
                             data: f
-                        } = t, y = [(0, Y.NC)(a), l ? (0, Y.NC)(l) : "0x", m ? (0, Y.NC)(m) : "0x", u ? (0, Y.NC)(u) : "0x", s ? (0, Y.NC)(s) : "0x", c ? ? "0x", d ? (0, Y.NC)(d) : "0x", f ? ? "0x", (0, eu.g)(p), h];
-                        return r && y.push(27 n === r.v ? "0x" : (0, Y.NC)(1), (0, en.f)(r.r), (0, en.f)(r.s)), (0, ec.SM)(["0x7b", (0, ed.LV)(y)])
+                        } = t, y = [(0, Y.NC)(a), l ? (0, Y.NC)(l) : "0x", m ? (0, Y.NC)(m) : "0x", u ? (0, Y.NC)(u) : "0x", s ? (0, Y.NC)(s) : "0x", c || "0x", d ? (0, Y.NC)(d) : "0x", f || "0x", (0, eu.g)(p), h];
+                        return r && y.push(27n === r.v ? "0x" : (0, Y.NC)(1), (0, en.f)(r.r), (0, en.f)(r.s)), (0, ec.SM)(["0x7b", (0, ed.LV)(y)])
                     }(t, r) : isCIP42(t) ? function(t, r) {
                         ! function(t) {
                             let {
@@ -50651,11 +50650,11 @@ Expected: awaiting_signature`)
                             gatewayFeeRecipient: f,
                             gatewayFee: y,
                             data: b
-                        } = t, C = [(0, Y.NC)(a), l ? (0, Y.NC)(l) : "0x", m ? (0, Y.NC)(m) : "0x", u ? (0, Y.NC)(u) : "0x", s ? (0, Y.NC)(s) : "0x", h ? ? "0x", f ? ? "0x", y ? (0, Y.NC)(y) : "0x", c ? ? "0x", d ? (0, Y.NC)(d) : "0x", b ? ? "0x", (0, eu.g)(p)];
-                        return r && C.push(27 n === r.v ? "0x" : (0, Y.NC)(1), (0, en.f)(r.r), (0, en.f)(r.s)), (0, ec.SM)(["0x7c", (0, ed.LV)(C)])
+                        } = t, C = [(0, Y.NC)(a), l ? (0, Y.NC)(l) : "0x", m ? (0, Y.NC)(m) : "0x", u ? (0, Y.NC)(u) : "0x", s ? (0, Y.NC)(s) : "0x", h || "0x", f || "0x", y ? (0, Y.NC)(y) : "0x", c || "0x", d ? (0, Y.NC)(d) : "0x", b || "0x", (0, eu.g)(p)];
+                        return r && C.push(27n === r.v ? "0x" : (0, Y.NC)(1), (0, en.f)(r.r), (0, en.f)(r.s)), (0, ec.SM)(["0x7c", (0, ed.LV)(C)])
                     }(t, r) : (0, em.D)(t, r)
                 },
-                eh = 2 n ** 256 n - 1 n,
+                eh = 2n ** 256n - 1n,
                 ef = (0, s.a)({
                     id: 42220,
                     name: "Celo",
@@ -54981,7 +54980,7 @@ Expected: awaiting_signature`)
             let nz = {
                     block: (0, Q.G)({
                         format(t) {
-                            let r = t.transactions ? .map(t => {
+                            let r = t.transactions?.map(t => {
                                 if ("string" == typeof t) return t;
                                 let r = nz.transaction.format(t);
                                 return "0x71" === r.typeHex ? r.type = "eip712" : "0xff" === r.typeHex && (r.type = "priority"), r
@@ -55090,7 +55089,7 @@ Expected: awaiting_signature`)
                             if (l && !c) throw new ei.G("`paymasterInput` must be provided when `paymaster` is defined");
                             if (!l && c) throw new ei.G("`paymaster` must be provided when `paymasterInput` is defined")
                         }(t);
-                        let E = [s ? (0, Y.NC)(s) : "0x", m ? (0, Y.NC)(m) : "0x", u ? (0, Y.NC)(u) : "0x", a ? (0, Y.NC)(a) : "0x", l ? ? "0x", d ? (0, Y.NC)(d) : "0x", C ? ? "0x", (0, Y.NC)(r), (0, Y.NC)(""), (0, Y.NC)(""), (0, Y.NC)(r), c ? ? "0x", b ? (0, Y.NC)(b) : "0x", h ? ? [], p ? ? "0x", f && y ? [f, y] : []];
+                        let E = [s ? (0, Y.NC)(s) : "0x", m ? (0, Y.NC)(m) : "0x", u ? (0, Y.NC)(u) : "0x", a ? (0, Y.NC)(a) : "0x", l || "0x", d ? (0, Y.NC)(d) : "0x", C || "0x", (0, Y.NC)(r), (0, Y.NC)(""), (0, Y.NC)(""), (0, Y.NC)(r), c || "0x", b ? (0, Y.NC)(b) : "0x", h || [], p || "0x", f && y ? [f, y] : []];
                         return (0, ec.SM)(["0x71", (0, ed.LV)(E)])
                     }(t) : (0, em.D)(t, r)
                 },
@@ -55436,27 +55435,27 @@ Expected: awaiting_signature`)
                     this.assertPosition(r), this.position = r
                 },
                 inspectByte(t) {
-                    let r = t ? ? this.position;
+                    let r = t || this.position;
                     return this.assertPosition(r), this.bytes[r]
                 },
                 inspectBytes(t, r) {
-                    let a = r ? ? this.position;
+                    let a = r || this.position;
                     return this.assertPosition(a + t - 1), this.bytes.subarray(a, a + t)
                 },
                 inspectUint8(t) {
-                    let r = t ? ? this.position;
+                    let r = t || this.position;
                     return this.assertPosition(r), this.bytes[r]
                 },
                 inspectUint16(t) {
-                    let r = t ? ? this.position;
+                    let r = t || this.position;
                     return this.assertPosition(r + 1), this.dataView.getUint16(r)
                 },
                 inspectUint24(t) {
-                    let r = t ? ? this.position;
+                    let r = t || this.position;
                     return this.assertPosition(r + 2), (this.dataView.getUint16(r) << 8) + this.dataView.getUint8(r + 2)
                 },
                 inspectUint32(t) {
-                    let r = t ? ? this.position;
+                    let r = t || this.position;
                     return this.assertPosition(r + 3), this.dataView.getUint32(r)
                 },
                 pushByte(t) {
@@ -55629,7 +55628,7 @@ Expected: awaiting_signature`)
                             address: c
                         });
                         if (s) throw new p.G("`gasPrice` is not a valid EIP-1559 Transaction attribute.");
-                        if (l && l > 2 n ** 256 n - 1 n) throw new f.Hh({
+                        if (l && l > 2n ** 256n - 1n) throw new f.Hh({
                             maxFeePerGas: l
                         });
                         if (a && l && a > l) throw new f.cs({
@@ -55638,9 +55637,9 @@ Expected: awaiting_signature`)
                         })
                     }(t);
                     let F = (0, C.g)(P),
-                        W = [(0, d.NC)(a), b ? (0, d.NC)(b) : "0x", O ? (0, d.NC)(O) : "0x", I ? (0, d.NC)(I) : "0x", s ? (0, d.NC)(s) : "0x", E ? ? "0x", j ? (0, d.NC)(j) : "0x", R ? ? "0x", F];
+                        W = [(0, d.NC)(a), b ? (0, d.NC)(b) : "0x", O ? (0, d.NC)(O) : "0x", I ? (0, d.NC)(I) : "0x", s ? (0, d.NC)(s) : "0x", E || "0x", j ? (0, d.NC)(j) : "0x", R || "0x", F];
                     if (r) {
-                        let t = 0 n === r.v ? "0x" : 1 n === r.v ? (0, d.NC)(1) : 27 n === r.v ? "0x" : (0, d.NC)(1);
+                        let t = 0n === r.v ? "0x" : 1n === r.v ? (0, d.NC)(1) : 27n === r.v ? "0x" : (0, d.NC)(1);
                         W.push(t, (0, c.f)(r.r), (0, c.f)(r.s))
                     }
                     return (0, l.SM)(["0x02", (0, u.LV)(W)])
@@ -55670,14 +55669,14 @@ Expected: awaiting_signature`)
                             address: c
                         });
                         if (a || l) throw new p.G("`maxFeePerGas`/`maxPriorityFeePerGas` is not a valid EIP-2930 Transaction attribute.");
-                        if (s && s > 2 n ** 256 n - 1 n) throw new f.Hh({
+                        if (s && s > 2n ** 256n - 1n) throw new f.Hh({
                             maxFeePerGas: s
                         })
                     }(t);
                     let R = (0, C.g)(O),
-                        F = [(0, d.NC)(a), E ? (0, d.NC)(E) : "0x", P ? (0, d.NC)(P) : "0x", s ? (0, d.NC)(s) : "0x", j ? ? "0x", I ? (0, d.NC)(I) : "0x", b ? ? "0x", R];
+                        F = [(0, d.NC)(a), E ? (0, d.NC)(E) : "0x", P ? (0, d.NC)(P) : "0x", s ? (0, d.NC)(s) : "0x", j || "0x", I ? (0, d.NC)(I) : "0x", b || "0x", R];
                     if (r) {
-                        let t = 0 n === r.v ? "0x" : 1 n === r.v ? (0, d.NC)(1) : 27 n === r.v ? "0x" : (0, d.NC)(1);
+                        let t = 0n === r.v ? "0x" : 1n === r.v ? (0, d.NC)(1) : 27n === r.v ? "0x" : (0, d.NC)(1);
                         F.push(t, (0, c.f)(r.r), (0, c.f)(r.s))
                     }
                     return (0, l.SM)(["0x01", (0, u.LV)(F)])
@@ -55707,20 +55706,20 @@ Expected: awaiting_signature`)
                             chainId: r
                         });
                         if (a || l) throw new p.G("`maxFeePerGas`/`maxPriorityFeePerGas` is not a valid Legacy Transaction attribute.");
-                        if (s && s > 2 n ** 256 n - 1 n) throw new f.Hh({
+                        if (s && s > 2n ** 256n - 1n) throw new f.Hh({
                             maxFeePerGas: s
                         });
                         if (d) throw new p.G("`accessList` is not a valid Legacy Transaction attribute.")
                     }(t);
-                    let I = [b ? (0, d.NC)(b) : "0x", j ? (0, d.NC)(j) : "0x", l ? (0, d.NC)(l) : "0x", C ? ? "0x", E ? (0, d.NC)(E) : "0x", c ? ? "0x"];
+                    let I = [b ? (0, d.NC)(b) : "0x", j ? (0, d.NC)(j) : "0x", l ? (0, d.NC)(l) : "0x", C || "0x", E ? (0, d.NC)(E) : "0x", c || "0x"];
                     if (r) {
                         let t = (() => {
-                            if (a > 0) return BigInt(2 * a) + BigInt(35 n + r.v - 27 n);
-                            if (r.v >= 35 n) {
-                                let t = (r.v - 35 n) / 2 n;
-                                return t > 0 ? r.v : 27 n + (35 n === r.v ? 0 n : 1 n)
+                            if (a > 0) return BigInt(2 * a) + BigInt(35n + r.v - 27n);
+                            if (r.v >= 35n) {
+                                let t = (r.v - 35n) / 2n;
+                                return t > 0 ? r.v : 27n + (35n === r.v ? 0n : 1n)
                             }
-                            let t = 27 n + (27 n === r.v ? 0 n : 1 n);
+                            let t = 27n + (27n === r.v ? 0n : 1n);
                             if (r.v !== t) throw new s.vl({
                                 v: r.v
                             });

@@ -2966,7 +2966,7 @@
                     quantity: o,
                     loggingExtra: a
                 } = e;
-                return t < 100000 n ? ((0, r.uT)("Unexpected estimation received", {
+                return t < 100000  ? ((0, r.uT)("Unexpected estimation received", {
                     tags: {
                         chainId: i,
                         editionAddress: n
@@ -2976,7 +2976,7 @@
                         quantity: o
                     },
                     level: "warning"
-                }), 500000 n) : t
+                }), 500000 ) : t
             }
         },
         77348: function(e, t, n) {
@@ -3035,9 +3035,9 @@
                     blockTag: "pending"
                 }).then(e => {
                     var t;
-                    return null !== (t = e.baseFeePerGas) && void 0 !== t ? t : 0 n
+                    return null !== (t = e.baseFeePerGas) && void 0 !== t ? t : 0 
                 })]);
-                return o >= t * (a + 1000000 n) + (null != i ? i : 0 n)
+                return o >= t * (a + 1000000 ) + (null != i ? i : 0 )
             }
             async function hasEnoughFundsForL2Upload(e) {
                 let {

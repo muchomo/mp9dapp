@@ -3122,14 +3122,14 @@
                     return l <= Date.now()
                 };
 
-            function getMaxMintablePerAccountForSaleSchedule(e) {
-                let {
-                    auctionType: l,
-                    updatedBasePrice: t,
-                    updatedMaxMintablePerAccount: r
-                } = e;
-                return 0 n === t ? J : l === A.IIw.OpenEdition || l === A.IIw.OpenEditionWithSam ? g.d2[0] : r
-            }
+                function getMaxMintablePerAccountForSaleSchedule(e) {
+                    let {
+                        auctionType: l,
+                        updatedBasePrice: t,
+                        updatedMaxMintablePerAccount: r
+                    } = e;
+                    return 0 === t ? J : l === A.IIw.OpenEdition || l === A.IIw.OpenEditionWithSam ? g.d2[0] : r
+                }
 
             function roundToNearest30Minutes(e) {
                 let l = e.getMinutes();

@@ -2310,106 +2310,106 @@
                         })
                     }, [ee, s]);
                     let es = (0, n.useMemo)(() => c ? "Switch chain in wallet" : J ? u ? "Confirm in wallet" : "Bridge" : "Insufficient funds", [u, J, c]),
-                        waitForTransaction = async e => {
+                    waitForTransaction = async e => {
+                        let {
+                            transactionHash: t,
+                            amountInEth: a
+                        } = e, l = r(D), n = await l.waitForTransactionReceipt({
+                            hash: t,
+                            confirmations: 2
+                        }), o = function(e) {
                             let {
-                                transactionHash: t,
-                                amountInEth: a
-                            } = e, l = r(D), n = await l.waitForTransactionReceipt({
-                                hash: t,
-                                confirmations: 2
-                            }), o = function(e) {
-                                let {
-                                    receipt: t
-                                } = e, a = [];
-                                for (let e of t.logs)
-                                    if (e.topics[0] === _ && null !== e.logIndex) try {
-                                        let t = (0, N.F)({
-                                            abi: I,
-                                            data: e.data,
-                                            topics: e.topics,
-                                            eventName: "TransactionDeposited"
-                                        });
-                                        a.push({
-                                            event: t,
-                                            logIndex: e.logIndex
-                                        })
-                                    } catch (e) {
-                                        if (!(e instanceof y.lC)) throw e
-                                    }
-                                return a
-                            }({
-                                receipt: n
-                            }), c = o[0];
-                            if (!c) return s({
-                                text: "Unable to check the transfer. Please check your balance in a few minutes.",
-                                variant: "error"
-                            });
+                                receipt: t
+                            } = e, a = [];
+                            for (let e of t.logs)
+                                if (e.topics[0] === _ && null !== e.logIndex) try {
+                                    let t = (0, N.F)({
+                                        abi: I,
+                                        data: e.data,
+                                        topics: e.topics,
+                                        eventName: "TransactionDeposited"
+                                    });
+                                    a.push({
+                                        event: t,
+                                        logIndex: e.logIndex
+                                    })
+                                } catch (e) {
+                                    if (!(e instanceof y.lC)) throw e
+                                }
+                            return a
+                        }({
+                            receipt: n
+                        }), c = o[0];
+                        if (!c) return s({
+                            text: "Unable to check the transfer. Please check your balance in a few minutes.",
+                            variant: "error"
+                        });
+                        let {
+                            event: u,
+                            logIndex: m
+                        } = c, x = r(O), h = function(e) {
+                            var t;
                             let {
-                                event: u,
-                                logIndex: m
-                            } = c, x = r(O), h = function(e) {
-                                var t;
-                                let {
-                                    event: a,
+                                event: a,
+                                logIndex: s,
+                                blockHash: l
+                            } = e, n = a.args.opaqueData;
+                            if (!n) throw Error("No opaque data found in event");
+                            let r = 0,
+                                o = (0, A.tP)(n, r, r + 32);
+                            r += 32;
+                            let d = (0, A.tP)(n, r, r + 32);
+                            r += 32;
+                            let c = (0, A.tP)(n, r, r + 8);
+                            r += 8;
+                            let u = 1n == BigInt(null !== (t = n[r]) && void 0 !== t ? t : "0");
+                            r += 1;
+                            let m = !0 === u ? "0x" : a.args.to;
+                            if (!m) throw Error("No to address found in event");
+                            let x = a.args.from;
+                            if (!x) throw Error("No from address found in event");
+                            let h = n.length - r,
+                                p = (0, A.tP)(n, r, r + h),
+                                f = i.UserDeposit,
+                                v = function(e) {
+                                    let {
+                                        domain: t,
+                                        logIndex: a,
+                                        l1BlockHash: s
+                                    } = e, i = (0, C.NC)(a), l = (0, k.zo)([s, (0, S.vk)(i, {
+                                        size: 32
+                                    })]), n = (0, E.w)(l), r = (0, C.NC)(t), o = (0, k.zo)([(0, S.vk)(r, {
+                                        size: 32
+                                    }), n]);
+                                    return (0, E.w)(o)
+                                }({
+                                    domain: f,
                                     logIndex: s,
-                                    blockHash: l
-                                } = e, n = a.args.opaqueData;
-                                if (!n) throw Error("No opaque data found in event");
-                                let r = 0,
-                                    o = (0, A.tP)(n, r, r + 32);
-                                r += 32;
-                                let d = (0, A.tP)(n, r, r + 32);
-                                r += 32;
-                                let c = (0, A.tP)(n, r, r + 8);
-                                r += 8;
-                                let u = 1 n == BigInt(null !== (t = n[r]) && void 0 !== t ? t : "0");
-                                r += 1;
-                                let m = !0 === u ? "0x" : a.args.to;
-                                if (!m) throw Error("No to address found in event");
-                                let x = a.args.from;
-                                if (!x) throw Error("No from address found in event");
-                                let h = n.length - r,
-                                    p = (0, A.tP)(n, r, r + h),
-                                    f = i.UserDeposit,
-                                    v = function(e) {
-                                        let {
-                                            domain: t,
-                                            logIndex: a,
-                                            l1BlockHash: s
-                                        } = e, i = (0, C.NC)(a), l = (0, k.zo)([s, (0, S.vk)(i, {
-                                            size: 32
-                                        })]), n = (0, E.w)(l), r = (0, C.NC)(t), o = (0, k.zo)([(0, S.vk)(r, {
-                                            size: 32
-                                        }), n]);
-                                        return (0, E.w)(o)
-                                    }({
-                                        domain: f,
-                                        logIndex: s,
-                                        l1BlockHash: l
-                                    }),
-                                    b = (0, T.LV)([v, x, m, (0, M.f)(o), (0, M.f)(d), (0, M.f)(c), "0x", p]);
-                                return (0, E.w)((0, k.zo)(["0x7E", b]))
-                            }({
-                                event: u,
-                                logIndex: m,
-                                blockHash: n.blockHash
-                            }), p = await (0, b.ag)({
-                                chainId: O,
-                                hash: h,
-                                provider: x,
-                                interval: 2e4
-                            });
-                            "success" === p.status && s({
-                                text: `Bridging complete! ${a} ETH was added to Optimism.`,
-                                variant: "success",
-                                ctaText: "View on Etherscan",
-                                ctaHref: (0, d.mt)({
-                                    transactionHash: h,
-                                    chainId: O
+                                    l1BlockHash: l
                                 }),
-                                duration: 3e5
-                            })
-                        },
+                                b = (0, T.LV)([v, x, m, (0, M.f)(o), (0, M.f)(d), (0, M.f)(c), "0x", p]);
+                            return (0, E.w)((0, k.zo)(["0x7E", b]))
+                        }({
+                            event: u,
+                            logIndex: m,
+                            blockHash: n.blockHash
+                        }), p = await (0, b.ag)({
+                            chainId: O,
+                            hash: h,
+                            provider: x,
+                            interval: 2e4
+                        });
+                        "success" === p.status && s({
+                            text: `Bridging complete! ${a} ETH was added to Optimism.`,
+                            variant: "success",
+                            ctaText: "View on Etherscan",
+                            ctaHref: (0, d.mt)({
+                                transactionHash: h,
+                                chainId: O
+                            }),
+                            duration: 3e5
+                        })
+                    },
                         ei = (0, j.p)({
                             chainId: D,
                             onChainSwitchFail() {
